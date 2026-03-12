@@ -1,0 +1,24 @@
+# J. Scott Chapman
+> Full-stack product engineer specializing in healthcare tech, AI/ML, and data-driven systems.
+
+## About
+- [Homepage](https://jscottchapman.com/): Product engineer portfolio with case studies in healthcare tech, AI, and automation
+
+## Key Facts
+- Founder of Ravenview Services (2016-present)
+- 10+ years building full-stack web applications
+- Specializes in HIPAA-compliant healthcare platforms and medical device integrations
+- Four AWS AI/ML certifications (2025)
+- Built platforms serving major pharmaceutical clients
+- Conference speaker at Big Sky Dev Con and Carolina Code Conference
+
+## Notable Work
+- TechFix SMS: Automated engagement platform that doubled student engagement (2x improvement, 98%+ delivery rate)
+- Morphose: HIPAA-compliant 3D physical therapy platform with 850+ exercise animations
+- CGM Visualization: Clinical dashboard for continuous glucose monitor data (BLE device-to-cloud pipeline)
+
+## Contact
+- Website: https://jscottchapman.com
+- GitHub: https://github.com/JScottChapman
+- LinkedIn: https://linkedin.com/in/jscottchapman
+- Email: scott@jscottchapman.com

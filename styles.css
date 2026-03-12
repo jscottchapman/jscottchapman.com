@@ -496,6 +496,149 @@ cite {
 }
 
 /* ========================================
+   HERO WHO LINE
+   ======================================== */
+
+.hero-who {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ========================================
+   SERVICES INTRO
+   ======================================== */
+
+.services-intro {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ========================================
+   CASE DATES
+   ======================================== */
+
+.case-date {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ========================================
+   CREDENTIALS
+   ======================================== */
+
+.credentials {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.cred-group h4 {
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.cred-group ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cred-group li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cred-group li:last-child {
+  border-bottom: none;
+}
+
+[data-theme="terminal"] .cred-group li::before {
+  content: '> ';
+  color: var(--accent);
+}
+
+[data-theme="barbie"] .cred-group li::before {
+  content: '\2665 ';
+  color: var(--accent);
+}
+
+[data-theme="mtv"] .cred-group li::before {
+  content: '\2605 ';
+  color: var(--accent);
+}
+
+/* ========================================
+   SHARE VIBE BUTTON & TOAST
+   ======================================== */
+
+.share-vibe-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.share-vibe-btn:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.share-icon {
+  font-size: 1rem;
+}
+
+.share-toast {
+  position: fixed;
+  top: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--bg-primary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1001;
+  white-space: nowrap;
+}
+
+.share-toast.visible {
+  opacity: 1;
+}
+
+/* ========================================
    CONTACT
    ======================================== */
 
@@ -591,8 +734,12 @@ footer p {
     align-items: center;
   }
 
-  .theme-label {
+  .theme-label, .share-label {
     display: none;
+  }
+
+  .cred-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -620,3 +767,27 @@ footer p {
 .service-card, .tech-group, .contact-link, .theme-btn {
   transition: all 0.3s ease;
 }
+
+/* ========================================
+   THEME FLASH TRANSITION
+   ======================================== */
+
+.theme-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.theme-flash.active {
+  opacity: 1;
+}
+
+[data-theme="terminal"] .theme-flash { background: #00ff41; }
+[data-theme="barbie"] .theme-flash { background: #ff69b4; }
+[data-theme="mtv"] .theme-flash { background: #00fff7; }

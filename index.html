@@ -5,6 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>J. Scott Chapman | Product Engineer</title>
   <meta name="description" content="J. Scott Chapman builds software that solves real problems. Healthcare platforms, AI-powered products, and data-driven systems that actually work.">
+  <link rel="canonical" href="https://jscottchapman.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="J. Scott Chapman | Product Engineer">
+  <meta property="og:description" content="Full-stack product engineer. Healthcare platforms, AI systems, and data pipelines that actually work. Also: this site has a Barbie mode.">
+  <meta property="og:url" content="https://jscottchapman.com/">
+  <meta property="og:site_name" content="J. Scott Chapman">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="J. Scott Chapman | Product Engineer">
+  <meta name="twitter:description" content="Full-stack product engineer. Healthcare platforms, AI systems, and data pipelines that actually work. Also: this site has a Barbie mode.">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "J. Scott Chapman",
+        "url": "https://jscottchapman.com",
+        "description": "J. Scott Chapman builds software that solves real problems. Healthcare platforms, AI-powered products, and data-driven systems that actually work."
+      },
+      {
+        "@type": "ProfilePage",
+        "dateModified": "2026-03-12",
+        "mainEntity": {
+          "@type": "Person",
+          "name": "J. Scott Chapman",
+          "jobTitle": "Product Engineer",
+          "url": "https://jscottchapman.com",
+          "email": "scott@jscottchapman.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressRegion": "MT",
+            "addressCountry": "US"
+          },
+          "sameAs": [
+            "https://github.com/JScottChapman",
+            "https://linkedin.com/in/jscottchapman"
+          ],
+          "knowsAbout": [
+            "Product Engineering",
+            "AI and Machine Learning",
+            "Healthcare Technology",
+            "HIPAA Compliance",
+            "Medical Device Integration",
+            "Full-Stack Development",
+            "React",
+            "Next.js",
+            "Node.js",
+            "AWS",
+            "Amazon Bedrock",
+            "Agentic AI Systems"
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "certification",
+              "name": "Fundamentals of Machine Learning and Artificial Intelligence",
+              "recognizedBy": { "@type": "Organization", "name": "AWS Training & Certification" }
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "certification",
+              "name": "Developing Machine Learning Solutions",
+              "recognizedBy": { "@type": "Organization", "name": "AWS Training & Certification" }
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "certification",
+              "name": "Responsible Artificial Intelligence Practices",
+              "recognizedBy": { "@type": "Organization", "name": "AWS Training & Certification" }
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "certification",
+              "name": "Exploring Artificial Intelligence Use Cases and Applications",
+              "recognizedBy": { "@type": "Organization", "name": "AWS Training & Certification" }
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "certification",
+              "name": "ITIL Foundation Certification",
+              "recognizedBy": { "@type": "Organization", "name": "AXELOS" }
+            }
+          ],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Western Governors University"
+          },
+          "memberOf": {
+            "@type": "Organization",
+            "name": "Ravenview Services"
+          }
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&family=Pacifico&family=Quicksand:wght@400;600;700&family=Press+Start+2P&family=Righteous&display=swap" rel="stylesheet">
@@ -25,7 +128,12 @@
         <span class="theme-icon">&#9733;</span>
         <span class="theme-label">MTV</span>
       </button>
+      <button class="share-vibe-btn" aria-label="Share this theme" title="Copy link to this vibe">
+        <span class="share-icon">&#8599;</span>
+        <span class="share-label">Share this vibe</span>
+      </button>
     </div>
+    <div class="share-toast" aria-live="polite" hidden>Link copied. Go spread the vibe.</div>
   </nav>
 
   <main>
@@ -34,7 +142,8 @@
       <div class="container">
         <h1 class="hero-title">J. Scott Chapman</h1>
         <p class="hero-subtitle">Product Engineer</p>
-        <p class="hero-tagline">I build the thing, measure the thing, and make the thing better. Usually all three before lunch.</p>
+        <p class="hero-tagline">You have the idea. I build the product, ship it, and prove it works. One person. The whole loop.</p>
+        <p class="hero-who">I work with founders, health-tech companies, and teams who need a product built from scratch.</p>
       </div>
     </section>
 
@@ -42,9 +151,9 @@
     <section class="about" id="about">
       <div class="container">
         <h2>The Short Version</h2>
-        <p>Ten years ago I was running fire protection crews at a nuclear plant. Then I learned to code, quit smoking a pack and a half a day, and started building software that helps people. The through-line is straightforward: I like solving problems that matter, and I have very little patience for ones that don't.</p>
-        <p>These days I build full-stack products from the ground up. I take a vague idea, figure out what it actually needs to be, architect it, build it, ship it, and measure whether it worked. Healthcare platforms, AI-powered products, data pipelines from wearable devices to clinician dashboards. The kind of work where "it's someone else's department" isn't a viable sentence.</p>
-        <p>I hold four AWS certifications in Machine Learning and AI, an ITIL Foundation cert, and I'm finishing a CS degree at Western Governors. I've spoken at Big Sky Dev Con and Carolina Code Conference. I teach at Montana Code Girls because the industry needs more people who don't look like me.</p>
+        <p>I build full-stack products from the ground up. I take a vague idea, figure out what it actually needs to be, architect it, build it, ship it, and measure whether it worked. Healthcare platforms, AI-powered products, data pipelines from wearable devices to clinician dashboards. The kind of work where "it's someone else's department" isn't a viable sentence.</p>
+        <p>Ten years ago I was running fire protection crews at a nuclear plant in South Carolina. Then I learned to code, quit smoking a pack and a half a day, and started building software that helps people. The through-line is straightforward: I like solving problems that matter, and I have very little patience for ones that don't.</p>
+        <p>Based in Montana. Working remotely since before it was mandatory.</p>
       </div>
     </section>
 
@@ -52,6 +161,7 @@
     <section class="services" id="work">
       <div class="container">
         <h2>What I Actually Do</h2>
+        <p class="services-intro">Most teams solve this by hiring an agency (slow, expensive, nobody owns the outcome) or a freelancer (writes code to your spec, never questions it). I do neither. I own the problem from discovery to metrics.</p>
         <div class="services-grid">
           <div class="service-card">
             <h3>Product Engineering</h3>
@@ -80,6 +190,7 @@
 
         <article class="case-study">
           <h3>TechFix SMS: Doubling Engagement With Personalized Texts</h3>
+          <time class="case-date">2025</time>
           <p>A client came to me and said, roughly: "What if we texted students reminders to study?" That was the entire brief.</p>
           <p>I dug in and discovered the real problem. Students had knowledge gaps nobody was tracking. Outreach was generic and sporadic. Nothing scaled. So I built an automated platform that categorized students by their weakest subject, sent personalized daily training links at 7 AM, tracked delivery across dual SMS providers, and gave admins a dashboard to see everything in real time.</p>
           <div class="case-results">
@@ -101,13 +212,73 @@
 
         <article class="case-study">
           <h3>Morphose: 3D Physical Therapy, HIPAA and All</h3>
+          <time class="case-date">2019 &ndash; 2022</time>
           <p>Physical therapists were handing patients printed sheets with stick-figure exercises and hoping for the best. I built Morphose: a HIPAA-compliant platform with a library of 850+ interactive 3D exercise animations, real-time progress tracking, secure messaging, and therapist dashboards for prescription management. The whole thing replaced a paper handout with a system that actually shows you how to move your body correctly.</p>
+          <div class="case-results">
+            <div class="result-item">
+              <span class="result-number">850+</span>
+              <span class="result-label">3D exercise animations</span>
+            </div>
+            <div class="result-item">
+              <span class="result-number">HIPAA</span>
+              <span class="result-label">fully compliant</span>
+            </div>
+            <div class="result-item">
+              <span class="result-number">Sole</span>
+              <span class="result-label">developer, full stack</span>
+            </div>
+          </div>
         </article>
 
         <article class="case-study">
           <h3>Continuous Glucose Monitor: Device to Dashboard</h3>
-          <p>At Estenda Solutions, I built the visualization layer for a continuous glucose monitor. The device talked BLE to a phone, the phone pushed data to the cloud, and I built what the doctor saw on the other end: longitudinal glucose trends, time-series readings, and the clinical context to make treatment decisions. The full pipeline from a sensor on your arm to a chart on your physician's screen.</p>
+          <time class="case-date">2019</time>
+          <p>At Estenda Solutions, I built the visualization layer for a proprietary continuous glucose monitor. The device talked BLE to a phone, the phone pushed data to the cloud, and I built what the doctor saw on the other end: longitudinal glucose trends, time-series readings, and the clinical context to make treatment decisions. The full pipeline from a sensor on your arm to a chart on your physician's screen.</p>
+          <div class="case-results">
+            <div class="result-item">
+              <span class="result-number">BLE</span>
+              <span class="result-label">device-to-cloud pipeline</span>
+            </div>
+            <div class="result-item">
+              <span class="result-number">Real-time</span>
+              <span class="result-label">glucose visualization</span>
+            </div>
+          </div>
         </article>
+      </div>
+    </section>
+
+    <!-- CREDENTIALS -->
+    <section class="credentials" id="credentials">
+      <div class="container">
+        <h2>Credentials</h2>
+        <div class="cred-grid">
+          <div class="cred-group">
+            <h4>AWS AI/ML Certifications (2025)</h4>
+            <ul>
+              <li>Fundamentals of Machine Learning and AI</li>
+              <li>Developing Machine Learning Solutions</li>
+              <li>Responsible AI Practices</li>
+              <li>Exploring AI Use Cases and Applications</li>
+            </ul>
+          </div>
+          <div class="cred-group">
+            <h4>Other</h4>
+            <ul>
+              <li>ITIL Foundation (AXELOS, 2020)</li>
+              <li>ExO Foundations (OpenExO, 2021)</li>
+              <li>B.S. Computer Science, Western Governors (in progress)</li>
+            </ul>
+          </div>
+          <div class="cred-group">
+            <h4>Speaking &amp; Teaching</h4>
+            <ul>
+              <li>Big Sky Dev Con (speaker)</li>
+              <li>Carolina Code Conference (speaker)</li>
+              <li>Montana Code Girls (volunteer instructor)</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -148,10 +319,10 @@
     <section class="contact" id="contact">
       <div class="container">
         <h2>Get In Touch</h2>
-        <p>I take on consulting work and I'm always interested in building something real. If you have a problem worth solving and you actually want to know whether the solution worked, we should talk.</p>
+        <p>I take on a small number of projects at a time, typically 2-4 month product builds from discovery through launch. If you have a problem worth solving and you want someone who'll own the outcome, not just the code, let's talk.</p>
         <div class="contact-links">
-          <a href="https://github.com/JScottChapman" class="contact-link">GitHub</a>
-          <a href="https://linkedin.com/in/jscottchapman" class="contact-link">LinkedIn</a>
+          <a href="https://github.com/JScottChapman" class="contact-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://linkedin.com/in/jscottchapman" class="contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="mailto:scott@jscottchapman.com" class="contact-link">Email</a>
         </div>
       </div>
