@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="terminal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J. Scott Chapman — Product Engineer</title>
+  <meta name="description" content="J. Scott Chapman builds software that solves real problems — healthcare platforms, AI-powered products, and data-driven systems that actually work.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&family=Pacifico&family=Quicksand:wght@400;600;700&family=Press+Start+2P&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="theme-nav">
+    <div class="theme-switcher">
+      <button class="theme-btn active" data-theme="terminal" aria-label="Terminal theme">
+        <span class="theme-icon">&#9608;</span>
+        <span class="theme-label">Terminal</span>
+      </button>
+      <button class="theme-btn" data-theme="barbie" aria-label="Barbie theme">
+        <span class="theme-icon">&#9829;</span>
+        <span class="theme-label">Barbie</span>
+      </button>
+      <button class="theme-btn" data-theme="mtv" aria-label="MTV theme">
+        <span class="theme-icon">&#9733;</span>
+        <span class="theme-label">MTV</span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">J. Scott Chapman</h1>
+        <p class="hero-subtitle">Product Engineer</p>
+        <p class="hero-tagline">I build the thing, measure the thing, and make the thing better. Usually all three before lunch.</p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="container">
+        <h2>The Short Version</h2>
+        <p>Ten years ago I was running fire protection crews at a nuclear plant. Then I learned to code, quit smoking a pack and a half a day, and started building software that helps people. The through-line is straightforward: I like solving problems that matter, and I have very little patience for ones that don't.</p>
+        <p>These days I build full-stack products from the ground up. I take a vague idea, figure out what it actually needs to be, architect it, build it, ship it, and measure whether it worked. Healthcare platforms, AI-powered products, data pipelines from wearable devices to clinician dashboards. The kind of work where "it's someone else's department" isn't a viable sentence.</p>
+        <p>I hold four AWS certifications in Machine Learning and AI, an ITIL Foundation cert, and I'm finishing a CS degree at Western Governors. I've spoken at Big Sky Dev Con and Carolina Code Conference. I teach at Montana Code Girls because the industry needs more people who don't look like me.</p>
+      </div>
+    </section>
+
+    <!-- WHAT I DO -->
+    <section class="services" id="work">
+      <div class="container">
+        <h2>What I Actually Do</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Product Engineering</h3>
+            <p>You describe what you want. I figure out what you need. Then I build it, ship it, and hand you the numbers that prove it works. The whole loop, one person, no telephone game.</p>
+          </div>
+          <div class="service-card">
+            <h3>AI &amp; Machine Learning</h3>
+            <p>Four AWS AI/ML certs and hands-on experience building agentic systems. I deploy models where they solve actual problems, not where they make good slide decks.</p>
+          </div>
+          <div class="service-card">
+            <h3>Healthcare Tech</h3>
+            <p>HIPAA-compliant platforms, medical device data pipelines, clinician-facing dashboards. I've built the full path from a BLE sensor on someone's body to a chart on a doctor's screen.</p>
+          </div>
+          <div class="service-card">
+            <h3>Systems That Run Themselves</h3>
+            <p>Automated onboarding, data-driven engagement campaigns, multi-provider failover. I build systems designed to keep working while you sleep.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="cases" id="cases">
+      <div class="container">
+        <h2>Work That Worked</h2>
+
+        <article class="case-study">
+          <h3>TechFix SMS: Doubling Engagement With Personalized Texts</h3>
+          <p>A client came to me and said, roughly: "What if we texted students reminders to study?" That was the entire brief.</p>
+          <p>I dug in and discovered the real problem. Students had knowledge gaps nobody was tracking. Outreach was generic and sporadic. Nothing scaled. So I built an automated platform that categorized students by their weakest subject, sent personalized daily training links at 7 AM, tracked delivery across dual SMS providers, and gave admins a dashboard to see everything in real time.</p>
+          <div class="case-results">
+            <div class="result-item">
+              <span class="result-number">2x</span>
+              <span class="result-label">student engagement</span>
+            </div>
+            <div class="result-item">
+              <span class="result-number">98%+</span>
+              <span class="result-label">SMS delivery rate</span>
+            </div>
+            <div class="result-item">
+              <span class="result-number">10 hrs/wk</span>
+              <span class="result-label">admin time saved</span>
+            </div>
+          </div>
+          <blockquote>"Scott has a rare ability to bridge the gap between an idea and the final product. His contributions were instrumental to the success of our program." <cite>Lowell Greene, TechFix / ATG</cite></blockquote>
+        </article>
+
+        <article class="case-study">
+          <h3>Morphose: 3D Physical Therapy, HIPAA and All</h3>
+          <p>Physical therapists were handing patients printed sheets with stick-figure exercises and hoping for the best. I built Morphose: a HIPAA-compliant platform with a library of 850+ interactive 3D exercise animations, real-time progress tracking, secure messaging, and therapist dashboards for prescription management. The whole thing replaced a paper handout with a system that actually shows you how to move your body correctly.</p>
+        </article>
+
+        <article class="case-study">
+          <h3>Continuous Glucose Monitor: Device to Dashboard</h3>
+          <p>At Estenda Solutions, I built the visualization layer for a continuous glucose monitor. The device talked BLE to a phone, the phone pushed data to the cloud, and I built what the doctor saw on the other end: longitudinal glucose trends, time-series readings, and the clinical context to make treatment decisions. The full pipeline from a sensor on your arm to a chart on your physician's screen.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TECH -->
+    <section class="tech" id="tech">
+      <div class="container">
+        <h2>The Stack</h2>
+        <div class="tech-grid">
+          <div class="tech-group">
+            <h4>Frontend</h4>
+            <p>React, Next.js, Astro, WebGL</p>
+          </div>
+          <div class="tech-group">
+            <h4>Backend</h4>
+            <p>Node.js, Express, GraphQL, REST</p>
+          </div>
+          <div class="tech-group">
+            <h4>Data</h4>
+            <p>PostgreSQL, MongoDB, Supabase, Elasticsearch</p>
+          </div>
+          <div class="tech-group">
+            <h4>Cloud &amp; DevOps</h4>
+            <p>AWS, Vercel, Docker, CI/CD</p>
+          </div>
+          <div class="tech-group">
+            <h4>AI/ML</h4>
+            <p>Amazon Bedrock, LLM Orchestration, Agentic Systems</p>
+          </div>
+          <div class="tech-group">
+            <h4>Integration</h4>
+            <p>Stripe, Auth0, Twilio, SendGrid, BLE</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <h2>Get In Touch</h2>
+        <p>I take on select consulting engagements and am always interested in work that involves building something real. If you have a problem that needs solving and a willingness to measure whether the solution actually worked, we should talk.</p>
+        <div class="contact-links">
+          <a href="https://github.com/JScottChapman" class="contact-link">GitHub</a>
+          <a href="https://linkedin.com/in/jscottchapman" class="contact-link">LinkedIn</a>
+          <a href="mailto:scott@jscottchapman.com" class="contact-link">Email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 J. Scott Chapman. Built with stubbornness and caffeine.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,622 @@
+/* ========================================
+   THEME VARIABLES
+   ======================================== */
+
+/* TERMINAL (Default) */
+[data-theme="terminal"] {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #1a1a1a;
+  --text-primary: #00ff41;
+  --text-secondary: #00cc33;
+  --text-muted: #33aa55;
+  --accent: #00ff41;
+  --accent-secondary: #ffb000;
+  --border: #1e3a1e;
+  --font-primary: 'JetBrains Mono', 'Courier New', monospace;
+  --font-secondary: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+  --card-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+  --glow: 0 0 10px rgba(0, 255, 65, 0.3);
+  --nav-bg: rgba(10, 10, 10, 0.95);
+  --btn-hover: rgba(0, 255, 65, 0.15);
+}
+
+/* BARBIE */
+[data-theme="barbie"] {
+  --bg-primary: #fff0f5;
+  --bg-secondary: #ffe4ec;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a2e;
+  --text-secondary: #e91e8c;
+  --text-muted: #b8568a;
+  --accent: #ff69b4;
+  --accent-secondary: #da1884;
+  --border: #ffb6d9;
+  --font-primary: 'Quicksand', 'Georgia', sans-serif;
+  --font-secondary: 'Pacifico', cursive;
+  --card-shadow: 0 4px 20px rgba(255, 105, 180, 0.15);
+  --glow: none;
+  --nav-bg: rgba(255, 240, 245, 0.95);
+  --btn-hover: rgba(255, 105, 180, 0.15);
+}
+
+/* MTV 1980s */
+[data-theme="mtv"] {
+  --bg-primary: #0d0221;
+  --bg-secondary: #150734;
+  --bg-card: #1a0a3e;
+  --text-primary: #ffffff;
+  --text-secondary: #ff6ec7;
+  --text-muted: #b39ddb;
+  --accent: #00fff7;
+  --accent-secondary: #ff6ec7;
+  --border: #6a1b9a;
+  --font-primary: 'Righteous', 'Impact', sans-serif;
+  --font-secondary: 'Press Start 2P', monospace;
+  --card-shadow: 0 0 20px rgba(0, 255, 247, 0.2), 0 0 40px rgba(255, 110, 199, 0.1);
+  --glow: 0 0 15px rgba(0, 255, 247, 0.4);
+  --nav-bg: rgba(13, 2, 33, 0.95);
+  --btn-hover: rgba(0, 255, 247, 0.15);
+}
+
+/* ========================================
+   RESET & BASE
+   ======================================== */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  line-height: 1.7;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  min-height: 100vh;
+}
+
+/* ========================================
+   TERMINAL SCANLINES
+   ======================================== */
+
+[data-theme="terminal"] body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  z-index: 9999;
+}
+
+/* ========================================
+   MTV GRID BACKGROUND
+   ======================================== */
+
+[data-theme="mtv"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(106, 27, 154, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106, 27, 154, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+section {
+  padding: 4rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================
+   NAV / THEME SWITCHER
+   ======================================== */
+
+.theme-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.theme-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.theme-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.theme-btn:hover {
+  background: var(--btn-hover);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.theme-btn.active {
+  background: var(--btn-hover);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.theme-icon {
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-primary);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+}
+
+[data-theme="barbie"] h2 {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+}
+
+[data-theme="mtv"] h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent-secondary);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+[data-theme="terminal"] p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-secondary);
+}
+
+/* ========================================
+   HERO
+   ======================================== */
+
+.hero {
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+
+[data-theme="terminal"] .hero-title {
+  text-shadow: var(--glow);
+}
+
+[data-theme="barbie"] .hero-title {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  font-size: 3.5rem;
+  color: var(--accent-secondary);
+}
+
+[data-theme="mtv"] .hero-title {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #00fff7, #ff6ec7, #ffe600);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 3.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+[data-theme="terminal"] .hero-subtitle::before {
+  content: '> ';
+}
+
+[data-theme="barbie"] .hero-subtitle {
+  text-transform: none;
+  font-family: var(--font-primary);
+  color: var(--accent);
+}
+
+[data-theme="mtv"] .hero-subtitle {
+  font-family: var(--font-secondary);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+}
+
+.hero-tagline {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-secondary);
+}
+
+[data-theme="terminal"] .hero-tagline {
+  color: var(--text-muted);
+}
+
+/* ========================================
+   ABOUT
+   ======================================== */
+
+.about {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ========================================
+   SERVICES GRID
+   ======================================== */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--card-shadow);
+}
+
+.service-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+[data-theme="terminal"] .service-card {
+  border-left: 3px solid var(--accent);
+}
+
+[data-theme="barbie"] .service-card {
+  border-radius: 16px;
+  border: 2px solid var(--border);
+}
+
+[data-theme="mtv"] .service-card {
+  border: 2px solid var(--border);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+/* ========================================
+   CASE STUDIES
+   ======================================== */
+
+.cases {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.case-study {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.case-study:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.case-results {
+  display: flex;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+[data-theme="terminal"] .result-number {
+  text-shadow: var(--glow);
+}
+
+[data-theme="mtv"] .result-number {
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.result-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  margin-top: 1rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+[data-theme="barbie"] blockquote {
+  border-left-color: var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: rgba(255, 105, 180, 0.05);
+  padding: 1rem;
+}
+
+cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-style: normal;
+  color: var(--accent-secondary);
+}
+
+/* ========================================
+   TECH GRID
+   ======================================== */
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.tech-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.tech-group:hover {
+  border-color: var(--accent);
+}
+
+.tech-group h4 {
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+.tech-group p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+[data-theme="barbie"] .tech-group {
+  border-radius: 12px;
+}
+
+[data-theme="mtv"] .tech-group {
+  border: 2px solid var(--border);
+}
+
+/* ========================================
+   CONTACT
+   ======================================== */
+
+.contact {
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.contact-link {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent);
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+[data-theme="barbie"] .contact-link {
+  border-radius: 50px;
+  border-width: 2px;
+}
+
+[data-theme="mtv"] .contact-link {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-secondary);
+  font-size: 0.6rem;
+  padding: 0.8rem 1.5rem;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  [data-theme="barbie"] .hero-title {
+    font-size: 2.5rem;
+  }
+
+  [data-theme="mtv"] .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .case-results {
+    gap: 1.5rem;
+  }
+
+  .contact-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .theme-label {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ========================================
+   TRANSITIONS
+   ======================================== */
+
+* {
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Override for elements that need different transitions */
+.service-card, .tech-group, .contact-link, .theme-btn {
+  transition: all 0.3s ease;
+}
