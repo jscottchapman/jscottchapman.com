@@ -1,9 +1,0 @@
-{
-  "type": "module",
-  "scripts": {
-    "build": "node build-themes.js"
-  },
-  "devDependencies": {
-    "@vercel/functions": "^1.0.0"
-  }
-}
