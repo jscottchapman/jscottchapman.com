@@ -1,14 +1,15 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
+      "src": "^/$",
       "has": [{ "type": "query", "key": "theme", "value": "barbie" }],
-      "destination": "/index-barbie.html"
+      "dest": "/index-barbie.html"
     },
     {
-      "source": "/",
+      "src": "^/$",
       "has": [{ "type": "query", "key": "theme", "value": "mtv" }],
-      "destination": "/index-mtv.html"
-    }
+      "dest": "/index-mtv.html"
+    },
+    { "handle": "filesystem" }
   ]
 }
