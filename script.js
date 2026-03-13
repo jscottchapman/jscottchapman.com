@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Try native share on mobile first
     if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) {
       navigator.share({
-        title: 'J. Scott Chapman',
+        title: 'J Scott Chapman',
         text: shareMessages[currentTheme],
         url: shareUrl
       }).catch(() => copyToClipboard(shareText, currentTheme));
