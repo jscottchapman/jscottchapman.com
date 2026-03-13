@@ -1,5 +1,4 @@
 {
-  "buildCommand": "node build-themes.js",
   "rewrites": [
     {
       "source": "/",
