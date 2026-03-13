@@ -1,3 +1,15 @@
 {
-  "buildCommand": "node build-themes.js"
+  "buildCommand": "node build-themes.js",
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "query", "key": "theme", "value": "barbie" }],
+      "destination": "/index-barbie.html"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "query", "key": "theme", "value": "mtv" }],
+      "destination": "/index-mtv.html"
+    }
+  ]
 }
