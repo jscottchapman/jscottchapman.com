@@ -1,8 +1,8 @@
-# J. Scott Chapman
-> Full-stack product engineer specializing in healthcare tech, AI/ML, and data-driven systems.
+# J Scott Chapman
+> AI product consultant specializing in healthcare tech, AI strategy, and data-driven systems.
 
 ## About
-- [Homepage](https://jscottchapman.com/): Product engineer portfolio with case studies in healthcare tech, AI, and automation
+- [Homepage](https://jscottchapman.com/): AI product consultant portfolio with case studies in healthcare tech, AI, and automation
 
 ## Key Facts
 - Founder of Ravenview Services (2016-present)
@@ -20,5 +20,5 @@
 ## Contact
 - Website: https://jscottchapman.com
 - GitHub: https://github.com/JScottChapman
-- LinkedIn: https://linkedin.com/in/jscottchapman
-- Email: scott@jscottchapman.com
+- LinkedIn: https://www.linkedin.com/in/rvnvw/
+- Email: scott@ravenviewservices.com
