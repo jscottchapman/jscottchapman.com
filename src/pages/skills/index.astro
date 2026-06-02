@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import { skills } from '../../data/skills';
+
+const published = skills.filter((s) => !s.draft);
+---
+
+<Base
+  title="Skills · J Scott Chapman"
+  description="Reusable Claude Code skills I've built and shared. Grab one with your email."
+  tagline="Tools I've built and decided to give away."
+>
+  <section class="cover">
+    <div class="wrap">
+      <span class="kicker">the toolbox ↓</span>
+      <h1>Skills.</h1>
+      <p class="deck">Reusable Claude Code skills I've built for my own work and decided to hand out. Free, no email required. Take what's useful.</p>
+    </div>
+  </section>
+
+  <section class="section" style="border-top:0;padding-top:0;">
+    <div class="wrap">
+      {published.length === 0 ? (
+        <p class="lede">Nothing published yet. Soon.</p>
+      ) : (
+        <div class="entry-list">
+          {published.map((s) => (
+            <a class="entry" href={`/skills/${s.slug}/`}>
+              <span class="when">Skill</span>
+              <span class="lede-row">
+                <h3>{s.name}<span class="pill">free</span></h3>
+                <p>{s.tagline}</p>
+              </span>
+              <span class="ar">→</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

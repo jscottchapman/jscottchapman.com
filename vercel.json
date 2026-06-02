@@ -1,15 +1,2 @@
-{
-  "routes": [
-    {
-      "src": "^/$",
-      "has": [{ "type": "query", "key": "theme", "value": "barbie" }],
-      "dest": "/index-barbie.html"
-    },
-    {
-      "src": "^/$",
-      "has": [{ "type": "query", "key": "theme", "value": "mtv" }],
-      "dest": "/index-mtv.html"
-    },
-    { "handle": "filesystem" }
-  ]
-}
+{}
+

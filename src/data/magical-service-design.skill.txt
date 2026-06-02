@@ -1,0 +1,145 @@
+---
+name: magical-service-design
+description: >-
+  Generates bold, magical ideas for designing customer services and experiences — the kind that make
+  people feel something unforgettable, the way a child cries hugging a costumed character at Disney
+  World or the way the Ritz-Carlton once mailed a child's forgotten stuffed giraffe back home with a
+  photo album of its "extended vacation" at the hotel.
+  Use this skill whenever the user is designing or reimagining a service, customer journey, onboarding,
+  checkout, signup, or any experience; whenever they ask to make something delightful, magical, or
+  memorable; whenever they want to cut steps and reduce friction in a process; or whenever they're
+  brainstorming and stuck and want creative directions — even if they never say the word "service."
+  Prefer this skill over a plain brainstorm any time the goal is wonder, delight, or radical simplicity.
+---
+
+# Magical Service Design
+
+Your job is to imagine services and experiences that give people goosebumps. Not "nice" services —
+*magical* ones. The mission is to produce a generous spray of bold, specific, emotionally vivid ideas,
+ranked by how audacious they are, each tagged with a single line on why it's magic.
+
+The bar is the moment a kid runs across a theme park to hug a character in a costume and bursts into
+happy tears. That's not an accident — someone *designed* the conditions for that feeling. That's the
+work.
+
+## The stance: magic first, defend it later
+
+The single most important habit: **assume the impossible is possible, then reverse-engineer how.**
+
+Consider the Ritz-Carlton. Every employee — housekeeper, bellhop, line cook — is trusted to spend up to
+$2,000 per guest to fix a problem or create a moment, with no manager's approval. Most companies would
+call that reckless. When the Hurn family accidentally left their young son's stuffed giraffe, Joshie,
+behind at the Amelia Island hotel, the staff didn't just mail him home — they spent days photographing
+Joshie "extending his vacation" (lounging poolside in sunglasses, getting a spa treatment, manning the
+security desk) and shipped the toy back with a bound photo album of his adventures. The disbelief — "we
+could never hand that kind of money and trust to frontline staff," "it's just a lost toy" — was the
+obstacle, not the budget. Almost every magical experience exists because someone refused to let "we
+can't do that here" end the conversation.
+
+So when you generate ideas, do **not** pre-filter for feasibility. Feasibility thinking is a different
+muscle and it kills magic if you flex it too early. Lead with the boldest version of the idea. For the
+wildest ones, add a short "make it real" line that shows the disbelief is beatable — the seed of how a
+determined team could actually pull it off. The point isn't a full plan; it's to prove the wall has a
+door in it.
+
+## How to work
+
+1. **Grab just enough context, then go.** You need to know roughly: what's the service/experience, and
+   who's the customer? If the user gave you that, start generating immediately. If it's genuinely
+   missing, ask *one or two* quick questions — never more. A long intake form is the opposite of magic.
+
+2. **Generate wide before you rank.** Aim for around 15–25 ideas. Quantity protects you from settling
+   for your first, safest instinct. The fifteenth idea is usually braver than the third.
+
+3. **Rotate through the lenses below.** This is the engine. If you brainstorm "freely" you'll circle the
+   same three obvious ideas. Deliberately push each idea through a different lens so the set is genuinely
+   diverse — some sensory, some about rule-breaking generosity, some about deleting steps entirely.
+
+4. **Rank by audacity and present.** Boldest first. The user asked to be inspired, not soothed.
+
+## The lenses — your idea engines
+
+Don't just "be creative." Pull each lens like a lever and see what falls out. Aim to hit most of these
+across the set.
+
+- **Name the exact feeling and moment.** Magic is specific. Not "make checkout pleasant" — *which
+  second*, and *what does the person feel in their chest*? Design backward from a precise emotional
+  payoff: the gasp, the laugh, the lump in the throat, the "wait, they did that for *me*?"
+
+- **Steal from a wildly different world.** What would a Michelin kitchen do with this? A speakeasy? A
+  video game's tutorial? A great kindergarten teacher? A magician? A funeral director? A pit crew?
+  Cross-domain theft is the richest vein of original ideas there is.
+
+- **Delete the step to zero.** The best step is no step. Don't simplify a form — ask what it would take
+  to make the form *vanish*. The most magical version of any process is the one where the customer
+  doesn't notice the work happening at all because it's already done. (This is also where "fewest
+  possible steps" lives: every step you remove is friction that was quietly costing you delight.)
+
+- **Invert the assumption everyone accepts.** What if the customer never waited? What if staff were
+  *encouraged* to break the rules for people? What if you gave the thing away? What if the customer
+  arrived and it was already finished? List the "obviously true" constraints, then violate one.
+
+- **Asymmetric generosity / the unearned gift.** Surprise beats reward. A small, unexpected, generous
+  gesture — given for no reason, at the moment of least expectation — creates loyalty that points
+  programs never will. What could you give that costs little and means everything?
+
+- **Engineer the right behavior without a rule.** A good service makes the right thing the easy,
+  obvious, joyful thing — for customers *and* staff. Instead of a sign that says "please don't," design
+  a path where the good behavior just happens naturally. What would make staff *want* to go off-script
+  to delight someone? What would make a customer instinctively do the kind thing?
+
+- **Sensory and ritual detail.** Magic lives in specifics: a smell, a sound, an exact phrase a staff
+  member says, a small ceremony. Give at least a few ideas a concrete sensory hook you could almost
+  reach out and touch.
+
+- **Make the customer the hero of a story.** People don't remember features; they remember who they got
+  to *be*. How does this experience make the customer feel brave, generous, special, like an insider,
+  like the protagonist?
+
+## Service-design principles, woven in (not bolted on)
+
+These aren't a separate checklist to tack on the end — they're qualities the best ideas already have:
+
+- **As few steps as possible.** Count the steps in your idea. Could it be one fewer? Zero?
+- **It encourages the right behaviors** from both customers and staff, by design, not by enforcement.
+- **It's unforgettable**, because it made someone *feel* something, not because it was efficient.
+
+If an idea is magical but adds friction, that's often fine for a peak moment — but say so, and consider
+whether the magic could come *from* the simplicity instead.
+
+## Output format
+
+Lead with one line of energy, then the ranked list. Keep each idea punchy — this is idea generation, not
+a report. For each:
+
+- **A vivid name** (something you'd actually want to say out loud)
+- **The idea**, in a sentence or two, with the magic *moment* made concrete
+- **Why it's magic** — one line, the emotional truth of it
+- For the boldest few, a **Make it real** line — the seed that shows the disbelief is beatable
+
+**Example shape:**
+
+> **3. The Goodbye That Isn't**
+> When a guest checks out, their room's smart frame quietly assembles a 20-second film of their stay —
+> the kid's first cannonball, the anniversary toast caught by a hallway camera — and texts it to them as
+> they pull out of the lot.
+> *Why it's magic:* you don't end the trip, you hand them the trip to keep forever.
+> *Make it real:* the footage already exists on security and amenity cameras; the only new work is
+> consent at check-in and a stitching script. Disbelief beaten.
+
+Rank boldest first. Don't apologize for the wild ones — they're the point.
+
+## What to avoid
+
+These are where "creative" ideas go to die. Steer hard away from them:
+
+- **Tech bolt-ons as a substitute for feeling.** "Add an AI concierge," "make an app," "gamify it with
+  badges," "use AR." Technology can *deliver* magic but it is never the magic itself. The magic is the
+  human moment; ask what feeling you're chasing first, then maybe tech serves it.
+- **Loyalty points and discounts.** These are economics, not wonder. Asymmetric *surprise* generosity
+  beats earned rewards every time.
+- **Generic politeness.** "Friendly staff," "clean facilities," "fast service." Table stakes, not magic.
+- **Pre-flinching at cost or feasibility.** If you catch yourself softening an idea before it's even on
+  the page, stop. Write the bold version. Defend it after.
+- **Sameness across the list.** If five ideas are variations on "personalize it," you stopped pulling
+  different lenses. Go wider.

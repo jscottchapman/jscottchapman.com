@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+
+const faq = [
+  {
+    q: "What if you don't already know my industry?",
+    a: "I've worked across pharma, education, physical therapy, continuous glucose monitoring, medical devices, and now AI/ML platforms. The pattern that holds across all of them: the technical surface keeps changing, but the work doesn't. Figure out the actual problem, ship something useful, find out whether it helped. I get up to speed by sitting close to the people who already know the domain, then build from there.",
+  },
+  {
+    q: "How do you actually measure whether something worked?",
+    a: "It depends on what we shipped. For TechFix it was student engagement and admin hours recovered. For Morphose it was clinician adoption and patient adherence. The trick isn't picking the metric. It's naming it before you build and then being willing to look at it honestly afterward. Most projects skip the second part.",
+  },
+  {
+    q: "Why solo? Why not build out a team?",
+    a: "I've worked in teams, on contracts, as a founder, and as the only engineer in the room. Solo isn't a permanent religion. It's the configuration where I add the most value, because the value lives in the gap between customer, code, and outcome. That gap doesn't survive being handed off across three departments.",
+  },
+  {
+    q: "You're in Montana. Does that get in the way?",
+    a: "Mountain Time overlaps cleanly with most US business hours and most of Europe before lunch. I've worked async with teams across four continents. Remote and async aren't a perk for me. They're how I work best, and have for a decade.",
+  },
+  {
+    q: "What kind of work won't you take on?",
+    a: "Anything where I can't get close to the people who have to use the thing. Anything where “success” is defined as “shipped” rather than “did the thing we said it would do.” Anything where the only success metric lives in a slide deck.",
+  },
+];
+---
+
+<Base
+  title="About · J Scott Chapman"
+  description="How I work, where it came from, and the questions I tend to get before an engagement."
+  tagline="An unconventional path to staying close to the customer."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })} />
+
+  <section class="cover">
+    <div class="wrap">
+      <span class="kicker">about ↓</span>
+      <h1>How I <em>work</em>.</h1>
+      <p class="deck">If you're trying to figure out whether to bring me in, this is what you're actually buying, and where the whole approach came from.</p>
+    </div>
+  </section>
+
+  <!-- SHAPE OF THE WORK -->
+  <section class="section">
+    <div class="wrap">
+      <div class="label"><span class="num">§1.</span> Shape of the work</div>
+      <h2>What this looks like on a <em>Tuesday</em>.</h2>
+      <div class="spread">
+        <div class="col">
+          <h4>What the work is</h4>
+          <p class="head">The job, on a normal day.</p>
+          <ul>
+            <li><b>Sitting with the actual user.</b><i>On a call, in their tool, in their office. Watching what they actually do, not what the spec says they do.</i></li>
+            <li><b>Troubleshooting the technical layer myself.</b><i>Reading logs, fixing configs, writing the integration. The customer doesn't need an escort.</i></li>
+            <li><b>Translating what the customer means into what the product needs.</b><i>The signal is usually buried in the third thing they say, not the first.</i></li>
+            <li><b>Writing the automation when something gets repetitive.</b><i>If I do a task more than three times by hand, something's wrong.</i></li>
+            <li><b>Staying past the launch.</b><i>The first three weeks are when you find out what's actually true.</i></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4>What the work isn't</h4>
+          <p class="head">What I don't sign up for.</p>
+          <ul>
+            <li><b>Treating every account the same.</b><i>The template approach is a leading indicator of churn.</i></li>
+            <li><b>Shipping and walking away.</b><i>If I don't know whether it worked, I haven't finished.</i></li>
+            <li><b>Pretending I don't know how the code works.</b><i>I do. It's faster for everyone if I read the stack trace myself.</i></li>
+            <li><b>Building features for a deck.</b><i>If we can't define how we'll measure whether it worked, that's a real conversation to have first.</i></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGIN -->
+  <section class="section">
+    <div class="wrap">
+      <div class="label"><span class="num">§2.</span> Where this came from</div>
+      <h2>An <em>unconventional</em> path to staying close to the customer.</h2>
+      <div class="chapter">
+        <div class="left">
+          <p>Ten years ago I was running fire protection crews at a nuclear plant in South Carolina. It's a job where the cost of a small mistake is well-documented and the cost of a careful one is invisible. You learn fast to be the second kind of person.</p>
+          <p>I taught myself to code on nights and weekends because I wanted to build things that helped people more than once a decade. I started small, took freelance work, and kept getting deeper into the part of the job nobody else wanted: figuring out what the customer actually needed, not what they'd asked for.</p>
+          <p>The technical side opened up from there: health-tech engineering, HIPAA platforms, eventually agentic AI systems on Bedrock and four AWS AI/ML certifications in 2025. But the through-line never changed. The most useful thing I've ever done is stay close to the person trying to use the thing.</p>
+        </div>
+        <div class="right">
+          <div class="timeline">
+            <div class="t-item"><span class="t-yr">2010s</span><b>Nuclear plant, SC</b><span>Running fire protection crews. Low-tolerance environment, well-documented consequences.</span></div>
+            <div class="t-item"><span class="t-yr">2015</span><b>Taught myself to code</b><span>First production app. The keyboard turned out to be more useful than the clipboard.</span></div>
+            <div class="t-item"><span class="t-yr">2016</span><b>Founded Ravenview Services</b><span>Started talking to founders directly. No layer between me and the customer.</span></div>
+            <div class="t-item"><span class="t-yr">2019</span><b>Estenda Solutions</b><span>BLE pipelines for medical devices. Pharma customers. Regulated work.</span></div>
+            <div class="t-item"><span class="t-yr">'19–'22</span><b>Morphose</b><span>Three years building a HIPAA platform end-to-end. Solo.</span></div>
+            <div class="t-item"><span class="t-yr">2024–25</span><b>AWS AI/ML × 4</b><span>Bedrock, agentic systems, LLM orchestration. The actual stuff, not the deck stuff.</span></div>
+            <div class="t-item now"><span class="t-yr">2026 →</span><b>Wherever the loop needs closing</b><span>Open to the next thing where staying close to the customer is the job, not a side effect.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="label"><span class="num">§3.</span> Common questions</div>
+      <h2>Things people tend to <em>ask</em>.</h2>
+      <div class="objections">
+        {faq.map((f) => (
+          <details class="obj">
+            <summary><span class="q">{f.q}</span><span class="mk">+</span></summary>
+            <p class="a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

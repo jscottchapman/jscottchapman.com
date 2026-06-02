@@ -1,0 +1,34 @@
+# J Scott Chapman
+> AI product consultant. Builds software end-to-end, stays close to the people using it, and finds out whether it actually worked.
+
+## About
+- [Homepage](https://jscottchapman.com/): A short editorial-style intro: who I am, a few case studies, and recent notes.
+- [Work](https://jscottchapman.com/work/): Full case studies. TechFix SMS, Morphose (HIPAA physical therapy), and a continuous glucose monitor visualization pipeline.
+- [About](https://jscottchapman.com/about/): How I work, where it came from, and common questions.
+- [Notes](https://jscottchapman.com/notes/): Short pieces on building, shipping, and AI tooling.
+- [Skills](https://jscottchapman.com/skills/): Reusable Claude Code skills, free with an email.
+
+## Key Facts
+- Founder of Ravenview Services (2016–present)
+- 10+ years building full-stack web applications
+- Specializes in HIPAA-compliant healthcare platforms, medical device integrations, and AI/agentic systems
+- Four AWS AI/ML certifications (2025)
+- Conference speaker at Big Sky Dev Con and Carolina Code Conference
+- Based in Missoula, Montana (Mountain Time)
+
+## Notable Work
+- TechFix SMS (2025): Personalized SMS engagement platform. Student engagement increased 100% year over year; 10 admin hours/week recovered.
+- Morphose (2019–2022): HIPAA-compliant 3D physical therapy platform with 850+ exercise animations, sole developer.
+- CGM Visualization (2019, at Estenda Solutions): Clinical dashboard for continuous glucose monitor data. BLE device-to-cloud pipeline.
+
+## How I Work
+- I close the loop: build, ship, measure, talk to whoever's using it, fix what was actually wrong.
+- I work solo because the value lives in the gap between customer, code, and outcome, and that gap doesn't survive a handoff.
+- I won't take on work where success is defined as "shipped" rather than "did the thing we said it would do."
+
+## Contact
+- Website: https://jscottchapman.com
+- GitHub: https://github.com/JScottChapman
+- LinkedIn: https://www.linkedin.com/in/rvnvw/
+- X: https://x.com/RavenviewSrvcs
+- Email: scott@ravenviewservices.com

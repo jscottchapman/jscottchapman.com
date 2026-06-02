@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; }
+    body {
+      background: #F1ECE0;
+      color: #1F1B14;
+      font-family: 'IBM Plex Sans', sans-serif;
+      padding: 64px 80px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-bottom: 16px solid #1F1B14;
+      position: relative;
+      overflow: hidden;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 17px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #3B362A;
+      border-bottom: 3px double #1F1B14;
+      padding-bottom: 18px;
+    }
+    .mid { padding: 8px 0 0; }
+    h1 {
+      font-family: 'Newsreader', serif;
+      font-weight: 500;
+      font-size: 132px;
+      line-height: 0.9;
+      letter-spacing: -0.025em;
+    }
+    h1 em { font-style: italic; color: #B5532A; }
+    .deck {
+      font-family: 'Newsreader', serif;
+      font-style: italic;
+      font-size: 33px;
+      line-height: 1.35;
+      color: #3B362A;
+      max-width: 24ch;
+      margin-top: 30px;
+    }
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 18px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6A6356;
+      padding-bottom: 40px;
+    }
+    .bottom .site { color: #B5532A; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <span>A field journal</span>
+    <span>Missoula, Montana</span>
+  </div>
+  <div class="mid">
+    <h1>J Scott <em>Chapman</em></h1>
+    <p class="deck">An AI product consultant who builds the thing, ships it, and finds out whether it worked.</p>
+  </div>
+  <div class="bottom">
+    <span class="site">jscottchapman.com</span>
+    <span>AI Product Consultant</span>
+  </div>
+</body>
+</html>

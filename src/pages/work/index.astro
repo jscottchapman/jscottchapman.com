@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Work · J Scott Chapman"
+  description="Case studies: a personalized SMS engagement platform, a HIPAA physical-therapy product, and a medical-device visualization pipeline."
+  tagline="Three projects, three kinds of actually working."
+>
+  <section class="cover">
+    <div class="wrap">
+      <span class="kicker">selected work ↓</span>
+      <h1>Notes from the <em>field</em>.</h1>
+      <p class="deck">Each of these started as a sentence that didn't fully describe what was needed. The job, in every case, was to find that out and then go build it.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <article class="note" id="techfix">
+        <div class="meta">
+          <span class="yr">2025</span>
+          <span class="tag">Education · SMS</span>
+          <span class="role">solo build<br>scoping, code,<br>customer calls,<br>the whole thing</span>
+        </div>
+        <div class="body">
+          <h3>The text-the-students <em>problem</em>.</h3>
+          <p>The brief from the customer was a single sentence: "What if we texted students reminders to study?" That was all of it.</p>
+          <p>So I asked. Turned out nobody could say which subjects the students were actually struggling with. The outreach was generic. The admin team was hand-curating lists in spreadsheets. Nothing scaled, and nothing said whether any of it was working.</p>
+          <p class="pull">"What if we texted students" turned out to mean: "we have no idea who needs help with what."</p>
+          <p>I built a platform that identified each student's weakest area from their performance data, sent them a personalized link every morning, and gave admins a dashboard to see what was actually moving. The dashboard mattered as much as the texts. Without it, nobody would have known.</p>
+          <div class="outcome">
+            <span><b>+100%</b>engagement, year over year</span>
+            <span><b>10 hrs / week</b>admin time recovered</span>
+            <span><b>1 person</b>full stack, full ownership</span>
+          </div>
+          <div class="quote">
+            "Scott has a rare ability to bridge the gap between an idea and the final product. His contributions were instrumental to the success of our program."
+            <cite>Lowell Greene, TechFix / ATG</cite>
+          </div>
+        </div>
+      </article>
+
+      <article class="note" id="morphose">
+        <div class="meta">
+          <span class="yr">'19–'22</span>
+          <span class="tag">Health-tech · HIPAA</span>
+          <span class="role">sole developer<br>three years on<br>one product</span>
+        </div>
+        <div class="body">
+          <h3>The photocopy <em>upgrade</em>.</h3>
+          <p>Physical therapists were sending patients home with photocopied sheets of stick figures and hoping the patients did the exercises correctly. They were not. Nobody had any way of finding out.</p>
+          <p>I built Morphose: a HIPAA-compliant platform with 850+ interactive 3D exercise animations, progress tracking, secure messaging, and a therapist dashboard. The clinicians needed something they trusted in a regulated environment. The patients needed something that didn't feel like homework.</p>
+          <p>What I learned that applies to almost everything I've done since: when the user is a domain expert and the data is sensitive, you cannot ship and hope. You ship, then you sit in their office and watch them try to use it. The thing they don't say out loud is the thing you have to fix.</p>
+          <div class="outcome">
+            <span><b>850+</b>3D exercise animations</span>
+            <span><b>HIPAA</b>fully compliant, end-to-end</span>
+            <span><b>Solo dev</b>frontend, backend, infra</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="note" id="cgm">
+        <div class="meta">
+          <span class="yr">2019</span>
+          <span class="tag">Medical devices</span>
+          <span class="role">engineering<br>at Estenda,<br>with a clinical team</span>
+        </div>
+        <div class="body">
+          <h3>From a <em>sensor on someone's arm</em> to a chart on a screen.</h3>
+          <p>Continuous glucose monitors are, on paper, an obvious product. In practice, the journey from "device measures glucose" to "doctor makes a decision based on a chart" is long and crowded with interesting failure modes. The data has to travel from BLE to phone to cloud to a clinician dashboard, and at every step it has to still mean what it meant when it started.</p>
+          <p>I built the visualization layer that doctors actually looked at: trends, time-series, the clinical context required to make a treatment call. The interesting work was almost entirely in the middle, where the data was bouncing between systems and had to be trustworthy on arrival.</p>
+          <div class="outcome">
+            <span><b>BLE → cloud</b>device pipeline</span>
+            <span><b>Real-time</b>clinical visualization</span>
+            <span><b>Pharma</b>end customer</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap" style="display: contents;">
+      <div>
+        <h2>Want the version that fits your problem?</h2>
+        <p>These are three shapes of the same job. If one of them rhymes with what you're trying to do, the fastest way to find out if I can help is a short call.</p>
+      </div>
+      <ul class="links">
+        <li><span class="k">Email</span><a href="mailto:scott@ravenviewservices.com">scott@ravenviewservices.com</a><span class="ar">↗</span></li>
+        <li><span class="k">About</span><a href="/about/">How I work →</a><span class="ar">↗</span></li>
+      </ul>
+    </div>
+  </section>
+</Base>

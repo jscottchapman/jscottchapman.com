@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes'))
+  .filter((n) => !n.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<Base
+  title="Notes · J Scott Chapman"
+  description="Short pieces on building software, shipping it, and the AI tooling I'm actually using."
+  tagline="Written when there's something to say, not on a schedule."
+>
+  <section class="cover">
+    <div class="wrap">
+      <span class="kicker">the notebook ↓</span>
+      <h1>Notes.</h1>
+      <p class="deck">Building, shipping, and the AI tools I'm actually putting into production, not the demo version.</p>
+    </div>
+  </section>
+
+  <section class="section" style="border-top:0;padding-top:0;">
+    <div class="wrap">
+      {notes.length === 0 ? (
+        <p class="lede">Nothing published yet. Soon.</p>
+      ) : (
+        <div class="entry-list">
+          {notes.map((n) => (
+            <a class="entry" href={`/notes/${n.id}/`}>
+              <span class="when">{fmt(n.data.date)}</span>
+              <span class="lede-row">
+                <h3>{n.data.title}</h3>
+                <p>{n.data.description}</p>
+              </span>
+              <span class="ar">→</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

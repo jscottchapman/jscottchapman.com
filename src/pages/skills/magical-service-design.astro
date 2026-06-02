@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+import Share from '../../components/Share.astro';
+import { KIT_FORM_ENDPOINT } from '../../data/skills';
+import skillSource from '../../data/magical-service-design.skill.txt?raw';
+
+const download = '/downloads/magical-service-design.skill';
+const description =
+  'A brainstorm partner that refuses to be boring. Describe a customer moment, get back ideas ranked by how audacious they are. A free Claude skill.';
+---
+
+<Base
+  title="Magical Service Design · J Scott Chapman"
+  description={description}
+  ogImage="/og-magical-service-design.png"
+  tagline=""
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Magical Service Design',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Claude (Claude Code, Claude apps)',
+    description,
+    url: 'https://jscottchapman.com/skills/magical-service-design/',
+    downloadUrl: 'https://jscottchapman.com/downloads/magical-service-design.skill',
+    isAccessibleForFree: true,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'J Scott Chapman', url: 'https://jscottchapman.com' },
+  })} />
+
+  <article class="section" style="border-top:0;padding-top:24px;">
+    <div class="wrap">
+      <header class="article-head">
+        <a class="back-link" href="/skills/">← Skills</a>
+        <span class="when">A skill, free · works in Claude</span>
+        <h1>Magical Service Design.</h1>
+        <p class="standfirst">A brainstorm partner that refuses to be boring. Describe a customer moment, get back ideas ranked by how audacious they are.</p>
+      </header>
+
+      <Share title="Magical Service Design, a free Claude skill" />
+
+      <div class="prose" style="max-width:60ch;">
+        <p>Too often, when people design a new service, they don't treat it as a chance to be creative. They look at what's possible, or really at what they already know is possible, and they build from there. They never stop to wonder how much delight or fun they could put into the thing, because they're too hung up on what's feasible to get curious about what would be magical.</p>
+        <p>I wrote this skill so people could borrow an LLM's creativity while they're designing that service, whether it's the onboarding steps for a SaaS product or how a dentist delivers care from the waiting room to the goodbye. Describe the moment, and it hands back bold, specific ideas you probably wouldn't have landed on by yourself.</p>
+        <p>The whole thing is right here. Read it, copy it, or download it. Let me know how you end up using it.</p>
+      </div>
+
+      <!-- THE SKILL, ON THE PAGE -->
+      <div class="source">
+        <div class="source-bar">
+          <span class="source-name">magical-service-design / SKILL.md</span>
+          <button class="copy-btn" id="copy-source" type="button">Copy</button>
+        </div>
+        <pre id="source-text">{skillSource}</pre>
+      </div>
+
+      <!-- FREE DOWNLOAD -->
+      <div class="unlocked">
+        <h4>Or grab the file</h4>
+        <p class="head">Drop it into Claude and go.</p>
+        <a class="download" href={download} download>Download the skill (.skill)</a>
+        <p style="font-family:var(--sans);font-size:12.5px;letter-spacing:0.04em;color:var(--ink-2);margin:14px 0 0;">
+          Works in Claude Code or a Claude app. Drop it in, then ask it to reimagine any customer moment.
+        </p>
+      </div>
+
+      <!-- OPTIONAL signup -->
+      <div class="gate" id="signup" data-endpoint={KIT_FORM_ENDPOINT}>
+        <h4>If it was useful</h4>
+        <p class="head">Want the next one in your inbox?</p>
+        <p>I build tools like this every so often. Drop your email and I'll send the occasional note. Nothing else.</p>
+        <form id="signup-form" novalidate>
+          <div class="input-group">
+            <input type="email" name="email_address" autocomplete="email" inputmode="email" placeholder="you@email.com" aria-label="Email address" required />
+            <button type="submit" id="signup-submit">Keep me posted</button>
+          </div>
+          <p class="fine">No spam, no selling your address. Just me, occasionally.</p>
+          <p class="msg error" id="signup-error" role="alert" aria-live="assertive" hidden></p>
+        </form>
+      </div>
+
+      <div class="unlocked" id="signup-done" role="status" aria-live="polite" tabindex="-1" hidden>
+        <h4>You're in ✓</h4>
+        <p class="head" style="margin-bottom:0;">That's it, you're on the list. I'll be in touch when there's something worth sending.</p>
+      </div>
+    </div>
+  </article>
+
+  <script>
+    // copy the skill source to clipboard
+    const copyBtn = document.getElementById('copy-source');
+    const sourceEl = document.getElementById('source-text');
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(sourceEl?.textContent ?? '');
+        copyBtn.textContent = 'Copied ✓';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+      } catch {
+        copyBtn.textContent = 'Press ⌘C';
+      }
+    });
+
+    // optional newsletter signup -> posts straight to Kit
+    const card = document.getElementById('signup');
+    const form = document.getElementById('signup-form') as HTMLFormElement | null;
+    const done = document.getElementById('signup-done');
+    const errEl = document.getElementById('signup-error');
+    const btn = document.getElementById('signup-submit') as HTMLButtonElement | null;
+    const endpoint = card?.getAttribute('data-endpoint') ?? '';
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      errEl && (errEl.hidden = true);
+      if (btn) { btn.disabled = true; btn.textContent = 'Adding you…'; }
+
+      const data = new FormData(form);
+      try {
+        const res = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+        const json = await res.json().catch(() => ({}));
+        const ok = res.ok && (json.status === 'success' || json.status === 'quarantined' || !json.error);
+        if (!ok) throw new Error('failed');
+        card && (card.hidden = true);
+        if (done) { done.hidden = false; done.focus(); done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      } catch {
+        if (errEl) { errEl.textContent = 'Hmm, that didn’t go through. Give it another shot?'; errEl.hidden = false; }
+        if (btn) { btn.disabled = false; btn.textContent = 'Keep me posted'; }
+      }
+    });
+  </script>
+</Base>

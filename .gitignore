@@ -1,2 +1,22 @@
-.vercel
-node_modules
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules/
+
+# astro
+.astro/
+
+# vercel
+.vercel/
+
+# environment
+.env
+.env.production
+.env*.local
+
+# misc
+.DS_Store
+.playwright-mcp/
+*.log

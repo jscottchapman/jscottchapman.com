@@ -1,0 +1,138 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes'))
+  .filter((n) => !n.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+
+<Base>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'J Scott Chapman',
+    jobTitle: 'AI Product Consultant',
+    url: 'https://jscottchapman.com',
+    email: 'scott@ravenviewservices.com',
+    address: { '@type': 'PostalAddress', addressLocality: 'Missoula', addressRegion: 'MT', addressCountry: 'US' },
+    sameAs: ['https://github.com/JScottChapman', 'https://www.linkedin.com/in/rvnvw/', 'https://x.com/RavenviewSrvcs'],
+  })} />
+
+  <!-- COVER -->
+  <section class="cover">
+    <div class="wrap">
+      <span class="kicker">hello.</span>
+      <h1>I'm J Scott <em>Chapman</em>.</h1>
+      <p class="deck">I'm an AI product consultant. I build software end to end (usually solo, often in healthcare), stay close to the people using it, and find out whether it actually worked. Below: a few things I've built, and some notes I've been writing.</p>
+      <p class="byline">Based in <b>Missoula, Montana</b>. Ten years of shipping things and sticking around to see if they landed.</p>
+    </div>
+  </section>
+
+  <!-- A FEW THINGS I'VE BUILT -->
+  <section class="section">
+    <div class="wrap">
+      <div class="label"><span class="num">§1.</span> A few things I've built</div>
+      <h2>Three projects, three kinds of <em>actually working</em>.</h2>
+      <p class="lede">Each started as a sentence that didn't quite describe what was needed. The job, every time, was to find that out and then go build it.</p>
+
+      <article class="note">
+        <div class="meta">
+          <span class="yr">2025</span>
+          <span class="tag">Education · SMS</span>
+          <span class="role">solo build<br>scope, code,<br>customer calls</span>
+        </div>
+        <div class="body">
+          <h3>The text-the-students <em>problem</em>.</h3>
+          <p>The brief was one sentence: "What if we texted students reminders to study?" Turned out nobody could say which subjects students were actually struggling with. I built a platform that found each student's weakest area, sent a personalized link every morning, and gave admins a dashboard that showed what was moving.</p>
+          <div class="outcome">
+            <span><b>+100%</b>engagement, YoY</span>
+            <span><b>10 hrs / wk</b>admin time recovered</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="note">
+        <div class="meta">
+          <span class="yr">'19–'22</span>
+          <span class="tag">Health-tech · HIPAA</span>
+          <span class="role">sole developer<br>three years,<br>one product</span>
+        </div>
+        <div class="body">
+          <h3>The photocopy <em>upgrade</em>.</h3>
+          <p>Physical therapists were sending patients home with photocopied stick figures and hoping. I built Morphose, a HIPAA-compliant platform with 850+ interactive 3D exercise animations, progress tracking, and a therapist dashboard the clinicians actually trusted.</p>
+          <div class="outcome">
+            <span><b>850+</b>3D animations</span>
+            <span><b>Solo dev</b>frontend, backend, infra</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="note">
+        <div class="meta">
+          <span class="yr">2019</span>
+          <span class="tag">Medical devices</span>
+          <span class="role">engineering<br>at Estenda,<br>clinical team</span>
+        </div>
+        <div class="body">
+          <h3>From a <em>sensor on someone's arm</em> to a chart on a screen.</h3>
+          <p>For a continuous glucose monitor, I built the visualization layer doctors actually looked at. Most of the real work lived in the middle, where the data bounced from BLE to phone to cloud and had to still mean what it meant when it started.</p>
+          <div class="outcome">
+            <span><b>BLE → cloud</b>device pipeline</span>
+            <span><b>Pharma</b>end customer</span>
+          </div>
+        </div>
+      </article>
+
+      <p class="lede" style="margin-top:40px;margin-bottom:0;">
+        <a href="/work/" style="color:var(--clay);font-style:normal;">Read the longer versions →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- NOTES TEASER -->
+  {notes.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <div class="label"><span class="num">§2.</span> Lately</div>
+        <h2>Notes I've been <em>writing</em>.</h2>
+        <p class="lede">Short pieces on building, shipping, and the AI tools I'm actually using.</p>
+        <div class="entry-list">
+          {notes.map((n) => (
+            <a class="entry" href={`/notes/${n.id}/`}>
+              <span class="when">{fmt(n.data.date)}</span>
+              <span class="lede-row">
+                <h3>{n.data.title}</h3>
+                <p>{n.data.description}</p>
+              </span>
+              <span class="ar">→</span>
+            </a>
+          ))}
+        </div>
+        <p class="lede" style="margin-top:32px;margin-bottom:0;">
+          <a href="/notes/" style="color:var(--clay);font-style:normal;">All notes →</a>
+        </p>
+      </div>
+    </section>
+  )}
+
+  <!-- CLOSING / CONTACT -->
+  <section class="closing">
+    <div class="wrap" style="display: contents;">
+      <div>
+        <h2>If this rhymes with how you work, let's talk.</h2>
+        <p>I take on a few engagements at a time, and I'm drawn to work where staying close to the customer is the job, not a side effect. Intro calls run about twenty minutes. If it isn't a fit, that's useful data on both sides.</p>
+      </div>
+      <ul class="links">
+        <li><span class="k">Email</span><a href="mailto:scott@ravenviewservices.com">scott@ravenviewservices.com</a><span class="ar">↗</span></li>
+        <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/rvnvw/" target="_blank" rel="noopener noreferrer">linkedin.com/in/rvnvw</a><span class="ar">↗</span></li>
+        <li><span class="k">X</span><a href="https://x.com/RavenviewSrvcs" target="_blank" rel="noopener noreferrer">x.com/RavenviewSrvcs</a><span class="ar">↗</span></li>
+        <li><span class="k">GitHub</span><a href="https://github.com/JScottChapman" target="_blank" rel="noopener noreferrer">github.com/JScottChapman</a><span class="ar">↗</span></li>
+      </ul>
+    </div>
+  </section>
+</Base>
