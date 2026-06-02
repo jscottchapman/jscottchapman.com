@@ -16,7 +16,11 @@ node_modules/
 .env.production
 .env*.local
 
+# playwright
+test-results/
+playwright-report/
+.playwright-mcp/
+
 # misc
 .DS_Store
-.playwright-mcp/
 *.log

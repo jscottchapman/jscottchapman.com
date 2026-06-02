@@ -7,11 +7,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/vercel": "^10.0.8",
     "astro": "^6.4.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
   }
 }
