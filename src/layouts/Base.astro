@@ -13,13 +13,13 @@ interface Props {
 const {
   title = 'J Scott Chapman · AI product consultant',
   description = 'J Scott Chapman is an AI product consultant who builds software end to end, stays close to the people using it, and finds out whether it actually worked.',
-  ogImage = '/og-card.png',
+  ogImage = '/og-home.png',
   tagline = 'Building things, shipping them, and finding out whether they worked.',
 } = Astro.props;
 
 // On preview deploys, point canonical + OG image at the deployment's own
 // domain so share cards are self-contained. Production uses the real site.
-const prodOrigin = 'https://www.jscottchapman.com';
+const prodOrigin = 'https://jscottchapman.com';
 const deployOrigin =
   process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production' && process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
