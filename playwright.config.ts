@@ -26,10 +26,12 @@ export default defineConfig({
       use: { ...devices['iPhone 14'] },
     },
   ],
-  // Build once, then serve the production output on PORT. Reused across runs
-  // locally so you don't rebuild every time; always fresh in CI.
+  // Run the Astro dev server. It serves both the prerendered pages and the
+  // /api/subscribe route. (The Vercel adapter doesn't support `astro preview`,
+  // so we can't serve the production build here; `npm run build` is validated
+  // separately in CI.)
   webServer: {
-    command: 'npm run build && npm run preview -- --port ' + PORT,
+    command: 'npm run dev -- --port ' + PORT,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

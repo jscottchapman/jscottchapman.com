@@ -17,7 +17,7 @@ const PAGES = [
 for (const { path, heading } of PAGES) {
   test(`${path} loads cleanly and shows its heading`, async ({ page }) => {
     await pageLoadsCleanly(page, path);
-    await expect(page.locator('h1')).toContainText(heading);
+    await expect(page.locator('main h1')).toContainText(heading);
   });
 }
 
@@ -26,7 +26,7 @@ test('primary nav reaches every section from the homepage', async ({ page }) => 
     await page.goto('/');
     await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: label }).click();
     await expect(page).toHaveURL(new RegExp(href.replace(/\//g, '\\/') + '?$'));
-    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('main h1')).toBeVisible();
   }
 });
 

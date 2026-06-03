@@ -19,6 +19,10 @@ export const skills: Skill[] = [
   },
 ];
 
-// Kit (ConvertKit) newsletter form. The styled signup posts here directly.
-// Form 9511459 on the ready-for-ultra.kit.com account. Collects email only.
-export const KIT_FORM_ENDPOINT = 'https://app.kit.com/forms/9511459/subscriptions';
+// Newsletter signup. The styled form posts JSON { email, skill } to our own
+// /api/subscribe serverless function, which subscribes the address to the
+// jscottchapman.com Beehiiv publication server-side (so the API key is never
+// exposed). source/skill ride along so site signups stay separable from the
+// Ready For Ultra (Kit) audience and we can see which skill drove each signup.
+export const SUBSCRIBE_ENDPOINT = '/api/subscribe';
+export const SITE_SOURCE = 'jscottchapman.com';
