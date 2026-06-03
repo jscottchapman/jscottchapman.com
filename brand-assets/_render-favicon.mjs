@@ -1,0 +1,10 @@
+import { chromium } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+const svg = readFileSync('public/favicon.svg','utf8');
+const browser = await chromium.launch();
+const p = await browser.newPage({ viewport:{width:340,height:150}, deviceScaleFactor:2 });
+const tile = (px)=>`<div style="text-align:center"><div style="width:${px}px;height:${px}px;margin:auto">${svg}</div><div style="font:11px sans-serif;color:#555;margin-top:6px">${px}px</div></div>`;
+await p.setContent(`<div style="display:flex;gap:28px;align-items:center;justify-content:center;height:150px;background:#fff">${tile(128)}${tile(48)}${tile(32)}${tile(16)}</div>`);
+await p.screenshot({ path:'brand-assets/_favicon-preview.png' });
+await browser.close();
+console.log('ok');

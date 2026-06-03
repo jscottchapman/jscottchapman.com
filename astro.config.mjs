@@ -1,10 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
-// Fully static. The newsletter signup posts directly to Kit (ConvertKit),
-// so there's no server code — Vercel just serves the built files.
+// Pages are prerendered static. The one exception is the /api/subscribe
+// endpoint (prerender = false), a Vercel function that proxies newsletter
+// signups to Beehiiv so the API key stays server-side.
 export default defineConfig({
   site: 'https://jscottchapman.com',
+  adapter: vercel(),
   integrations: [sitemap()],
 });

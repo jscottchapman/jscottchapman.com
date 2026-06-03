@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Share from '../../components/Share.astro';
-import { KIT_FORM_ENDPOINT } from '../../data/skills';
+import { SUBSCRIBE_ENDPOINT } from '../../data/skills';
 import skillSource from '../../data/magical-service-design.skill.txt?raw';
 
 const download = '/downloads/magical-service-design.skill';
@@ -66,7 +66,7 @@ const description =
       </div>
 
       <!-- OPTIONAL signup -->
-      <div class="gate" id="signup" data-endpoint={KIT_FORM_ENDPOINT}>
+      <div class="gate" id="signup" data-endpoint={SUBSCRIBE_ENDPOINT} data-skill="magical-service-design">
         <h4>If it was useful</h4>
         <p class="head">Want the next one in your inbox?</p>
         <p>I build tools like this every so often. Drop your email and I'll send the occasional note. Nothing else.</p>
@@ -101,13 +101,14 @@ const description =
       }
     });
 
-    // optional newsletter signup -> posts straight to Kit
+    // optional newsletter signup -> our /api/subscribe proxy (server-side Beehiiv)
     const card = document.getElementById('signup');
     const form = document.getElementById('signup-form') as HTMLFormElement | null;
     const done = document.getElementById('signup-done');
     const errEl = document.getElementById('signup-error');
     const btn = document.getElementById('signup-submit') as HTMLButtonElement | null;
-    const endpoint = card?.getAttribute('data-endpoint') ?? '';
+    const endpoint = card?.getAttribute('data-endpoint') ?? '/api/subscribe';
+    const skill = card?.getAttribute('data-skill') ?? '';
 
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -115,12 +116,15 @@ const description =
       errEl && (errEl.hidden = true);
       if (btn) { btn.disabled = true; btn.textContent = 'Adding you…'; }
 
-      const data = new FormData(form);
+      const email = new FormData(form).get('email_address')?.toString() ?? '';
       try {
-        const res = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email, skill }),
+        });
         const json = await res.json().catch(() => ({}));
-        const ok = res.ok && (json.status === 'success' || json.status === 'quarantined' || !json.error);
-        if (!ok) throw new Error('failed');
+        if (!res.ok || !json.ok) throw new Error('failed');
         card && (card.hidden = true);
         if (done) { done.hidden = false; done.focus(); done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
       } catch {
