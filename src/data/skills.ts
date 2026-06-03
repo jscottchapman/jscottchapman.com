@@ -19,10 +19,11 @@ export const skills: Skill[] = [
   },
 ];
 
-// Newsletter signup. The styled form posts JSON { email, skill } to our own
-// /api/subscribe serverless function, which subscribes the address to the
-// jscottchapman.com Beehiiv publication server-side (so the API key is never
-// exposed). source/skill ride along so site signups stay separable from the
-// Ready For Ultra (Kit) audience and we can see which skill drove each signup.
+// Newsletter signup. The reusable <Signup> component posts JSON { email,
+// campaign } to our own /api/subscribe serverless function, which subscribes
+// the address to the jscottchapman.com Beehiiv publication server-side (so the
+// API key is never exposed). source/campaign ride along so site signups stay
+// separable from the Ready For Ultra (Kit) audience and we can see which
+// placement drove each signup.
 export const SUBSCRIBE_ENDPOINT = '/api/subscribe';
 export const SITE_SOURCE = 'jscottchapman.com';

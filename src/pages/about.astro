@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Signup from '../components/Signup.astro';
 
 const faq = [
   {
@@ -118,6 +119,13 @@ const faq = [
           </details>
         ))}
       </div>
+
+      <Signup
+        campaign="about"
+        eyebrow="Before you go"
+        heading="Want the occasional note?"
+        body="I write the odd piece on building, shipping, and staying close to the customer. Drop your email and I'll send them along. Nothing else."
+      />
     </div>
   </section>
 </Base>
