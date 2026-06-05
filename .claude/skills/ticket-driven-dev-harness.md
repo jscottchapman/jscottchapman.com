@@ -222,8 +222,8 @@ ship, iterate, or rethink.
 Only after evaluation passes:
 
 1. Branch named `issue-{number}/{short-description}`
-2. Commit referencing the issue: `#{number}: {description}` (end commit body with
-   the standard `Co-Authored-By` trailer)
+2. Commit referencing the issue: `#{number}: {description}` (no `Co-Authored-By`
+   trailer — established preference)
 3. Open the PR with:
    - Title referencing the issue
    - Body including `Fixes #{number}` so the issue auto-closes on merge
