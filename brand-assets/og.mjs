@@ -63,6 +63,18 @@ const CARDS = [
     headlineSize: 92,
     deckWidth: '30ch',
   },
+  {
+    out: 'og-persona-exorcist.png',
+    eyebrowLeft: 'Persona Exorcist',
+    eyebrowRight: 'A free Claude skill',
+    headline: 'The persona you deleted keeps coming <em>back</em>.',
+    deck: 'Find every AI persona in a codebase, and the channel still summoning the ghost.',
+    footerLeft: 'jscottchapman.com / skills',
+    footerRight: 'J Scott Chapman',
+    accent: CLAY,
+    headlineSize: 86,
+    deckWidth: '30ch',
+  },
 ];
 
 const FONTS = `

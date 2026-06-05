@@ -12,6 +12,12 @@ export interface Skill {
 
 export const skills: Skill[] = [
   {
+    slug: 'persona-exorcist',
+    name: 'Persona Exorcist',
+    tagline: 'Find every AI persona in a codebase, and the hidden channel that keeps resurrecting the one you already deleted.',
+    date: '2026-06-05',
+  },
+  {
     slug: 'magical-service-design',
     name: 'Magical Service Design',
     tagline: 'A brainstorm partner that refuses to be boring. Describe a customer moment, get back ideas ranked by how audacious they are.',

@@ -188,6 +188,46 @@ Learnings baked into the generator — don't relearn them the hard way:
 - **Verify the real card**, not just that a file wrote: open the PNG and read it
   as an image. Fonts that didn't load reflow the text.
 
+### Publishing a skill page
+
+Every skill page (click-to-copy source, download button, email signup, schema,
+share row, intro prose) is rendered by `src/layouts/SkillPage.astro` — the single
+source of truth for that archetype. **Do not copy an existing skill page.** If
+you find yourself duplicating `magical-service-design.astro`, stop: the layout is
+the pattern, and any one skill page may be deleted without taking it down.
+
+To publish a new skill at `/skills/<slug>/`:
+
+1. **Source + download.** Drop the skill's `SKILL.md` at
+   `src/data/<slug>.skill.txt` (shown on the page, imported with `?raw`) and a
+   downloadable copy at `public/downloads/<slug>.skill`.
+2. **The page** — `src/pages/skills/<slug>.astro` is just props + intro prose:
+
+   ```astro
+   ---
+   import SkillPage from '../../layouts/SkillPage.astro';
+   import source from '../../data/<slug>.skill.txt?raw';
+   const description = '... A free Claude skill.';
+   ---
+   <SkillPage slug="<slug>" name="<Name>" description={description}
+     ogImage="/og-<slug>.png" standfirst="..."
+     sourceLabel="<slug> / SKILL.md" source={source}
+     download="/downloads/<slug>.skill" downloadBlurb="...">
+     <p>Intro prose, first person, in Scott's voice — why it exists, what it does.</p>
+   </SkillPage>
+   ```
+
+   `SkillPage` defaults the heading, eyebrow, share title, download label, signup
+   campaign, and the `SoftwareApplication` schema from `slug`/`name`. Only pass
+   what differs.
+3. **Index entry** — add the skill to `src/data/skills.ts` (newest first) so it
+   lists on `/skills`.
+4. **OG card** — add a `CARDS` entry in `brand-assets/og.mjs` and render it (see
+   [Share images](#share-images-og-cards)); the page points `ogImage` at it.
+5. **Multi-file skills:** the download is a single `SKILL.md` for now. If a skill
+   needs its bundled scripts to work, that's a real decision to raise (zip vs.
+   repo link), not something to paper over with an incomplete one-file download.
+
 ---
 
 ## Phase 4: EVALUATE (Grade Against the Issue)

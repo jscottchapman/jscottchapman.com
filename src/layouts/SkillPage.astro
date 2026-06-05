@@ -1,0 +1,135 @@
+---
+// The skill-page archetype, in one place. Every published skill renders through
+// this layout, so the behavior and structure live here once: header + back
+// link, share row, an intro <slot>, the on-page source viewer with click-to-copy,
+// the download card, the email signup, and the SoftwareApplication schema.
+//
+// A new skill page is props + intro prose — nothing is copied from another page,
+// so deleting any one skill page leaves this layout (and the others) intact.
+import Base from './Base.astro';
+import Share from '../components/Share.astro';
+import Signup from '../components/Signup.astro';
+
+interface Props {
+  /** url slug under /skills/<slug>/ — also the default signup campaign */
+  slug: string;
+  /** display name, e.g. "Magical Service Design" */
+  name: string;
+  /** meta + schema description */
+  description: string;
+  title?: string;
+  ogImage?: string;
+  /** h1 text; defaults to the name with a period */
+  heading?: string;
+  standfirst?: string;
+  /** the small eyebrow line above the h1 */
+  eyebrow?: string;
+  shareTitle?: string;
+  /** source-bar label, e.g. "magical-service-design / SKILL.md" */
+  sourceLabel: string;
+  /** the raw skill text shown on the page and copied to the clipboard */
+  source: string;
+  /** href to the downloadable file */
+  download: string;
+  downloadHeading?: string;
+  downloadLabel?: string;
+  downloadBlurb?: string;
+  /** utm_campaign for the signup; defaults to the slug */
+  signupCampaign?: string;
+}
+
+const {
+  slug,
+  name,
+  description,
+  title = `${name} · J Scott Chapman`,
+  ogImage = '/og-skill.png',
+  heading = `${name}.`,
+  standfirst,
+  eyebrow = 'A skill, free · works in Claude',
+  shareTitle = `${name}, a free Claude skill`,
+  sourceLabel,
+  source,
+  download,
+  downloadHeading = 'Drop it into Claude and go.',
+  downloadLabel = 'Download the skill (.skill)',
+  downloadBlurb = 'Works in Claude Code or a Claude app. Drop it in and go.',
+  signupCampaign = slug,
+} = Astro.props;
+
+const site = 'https://jscottchapman.com';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Claude (Claude Code, Claude apps)',
+  description,
+  url: `${site}/skills/${slug}/`,
+  downloadUrl: `${site}${download}`,
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Person', name: 'J Scott Chapman', url: site },
+};
+---
+
+<Base title={title} description={description} ogImage={ogImage} tagline="">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+
+  <article class="section" style="border-top:0;padding-top:24px;">
+    <div class="wrap">
+      <header class="article-head">
+        <a class="back-link" href="/skills/">← Skills</a>
+        <span class="when">{eyebrow}</span>
+        <h1>{heading}</h1>
+        {standfirst && <p class="standfirst">{standfirst}</p>}
+      </header>
+
+      <Share title={shareTitle} />
+
+      <div class="prose" style="max-width:60ch;">
+        <slot />
+      </div>
+
+      <!-- THE SKILL, ON THE PAGE -->
+      <div class="source">
+        <div class="source-bar">
+          <span class="source-name">{sourceLabel}</span>
+          <button class="copy-btn" data-copy-btn type="button">Copy</button>
+        </div>
+        <pre data-copy-source>{source}</pre>
+      </div>
+
+      <!-- FREE DOWNLOAD -->
+      <div class="unlocked">
+        <h4>Or grab the file</h4>
+        <p class="head">{downloadHeading}</p>
+        <a class="download" href={download} download>{downloadLabel}</a>
+        <p style="font-family:var(--sans);font-size:12.5px;letter-spacing:0.04em;color:var(--ink-2);margin:14px 0 0;">
+          {downloadBlurb}
+        </p>
+      </div>
+
+      <!-- OPTIONAL signup -->
+      <Signup campaign={signupCampaign} />
+    </div>
+  </article>
+
+  <script>
+    // Click-to-copy the on-page skill source. Scoped to data-attributes and
+    // closest(), never ids, so it works unchanged on every skill page (and would
+    // survive more than one source block on a page).
+    document.querySelectorAll<HTMLButtonElement>('[data-copy-btn]').forEach((btn) => {
+      const source = btn.closest('.source')?.querySelector<HTMLElement>('[data-copy-source]');
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(source?.textContent ?? '');
+          btn.textContent = 'Copied ✓';
+          setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+        } catch {
+          btn.textContent = 'Press ⌘C';
+        }
+      });
+    });
+  </script>
+</Base>

@@ -1,0 +1,23 @@
+---
+import SkillPage from '../../layouts/SkillPage.astro';
+import skillSource from '../../data/persona-exorcist.skill.txt?raw';
+
+const description =
+  'Hunt AI-agent personas across a project and trace the hooks, memory, and imports that keep re-summoning a persona you already deleted. A free Claude skill.';
+---
+
+<SkillPage
+  slug="persona-exorcist"
+  name="Persona Exorcist"
+  description={description}
+  ogImage="/og-persona-exorcist.png"
+  standfirst="Find every AI persona in a codebase, and the hidden channel that keeps resurrecting the one you already deleted."
+  sourceLabel="persona-exorcist / SKILL.md"
+  source={skillSource}
+  download="/downloads/persona-exorcist.skill"
+  downloadBlurb="Works in Claude Code or a Claude app. Drop it into ~/.claude/skills, then point it at a project where a persona won't stay dead."
+>
+  <p>You delete an AI persona, some helpful pirate or snarky reviewer you wired up one afternoon, and it keeps coming back. You remove the file, and next session it's talking to you again. The definition is gone, but something is still summoning it.</p>
+  <p>I built this skill to find that something. It separates a persona's definition (the text describing the character) from its re-injection channels (the hooks, memory files, imports, and generators that actually load it back into context), then sweeps every place it can hide, including the folders above your repo and your global ~/.claude config, where one poisoned hook quietly re-summons the same character in every project. When it finds the source, it quarantines it reversibly instead of deleting, so nothing load-bearing disappears by accident.</p>
+  <p>The whole thing is right here. Read it, copy it, or download it. If it exorcises a ghost you'd been fighting, tell me.</p>
+</SkillPage>
