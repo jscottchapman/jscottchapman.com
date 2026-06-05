@@ -151,6 +151,42 @@ Before the full suite, verify end-to-end against a real server:
 - [ ] `npm test` passes on Mobile Safari
 - [ ] No new console errors on touched pages
 - [ ] Existing pages still build and render (regression check)
+- [ ] **New page? It has its own OG share image** (see [Share images](#share-images-og-cards) below) and the page passes it via `<Base ogImage="/og-<name>.png">`
+
+### Share images (OG cards)
+
+A new page is not finished until it has a share image. When someone drops the
+link in iMessage, Slack, LinkedIn, or X, the preview card is the first (often
+only) thing they see. Default fallback is `/og-home.png` (the site card) — fine
+for a thin page, wrong for anything you actually want shared (a skill, a
+flagship note, a landing page). Those get their own card.
+
+Don't hand-build it. The recipe is captured in `brand-assets/og.mjs`:
+
+```bash
+# 1. Add one entry to the CARDS array in brand-assets/og.mjs with a NEW `out`
+#    filename — eyebrows, a headline (one <em>word</em> renders italic clay),
+#    a deck, footer, and accent (ink = the site; clay = lighter, e.g. a skill).
+# 2. Render it:
+node brand-assets/og.mjs --only <name>
+# 3. Wire it on the page:
+#    <Base ogImage="/og-<name>.png" ... />
+```
+
+Learnings baked into the generator — don't relearn them the hard way:
+
+- **1200×630, rendered 1:1.** That matches the `og:image:width`/`height` that
+  `Base.astro` declares. Don't bump `deviceScaleFactor` without updating Base.
+- **Changing an image a page already ships? Use a NEW filename.** Crawlers cache
+  OG images hard by URL, so the same filename serves a stale preview for days.
+  A fresh filename is the reliable cache-bust. (This is why the generator
+  *skips* files that already exist; `--force` is only for a deliberate redesign.)
+- **On brand or it doesn't ship:** paper `#F1ECE0`, ink `#1F1B14`, clay accent
+  `#B5532A`; Newsreader serif headline with exactly one italic clay word, IBM
+  Plex Sans uppercase eyebrows. Same voice rules as the site — no em-dashes,
+  "J Scott Chapman" never "J. Scott".
+- **Verify the real card**, not just that a file wrote: open the PNG and read it
+  as an image. Fonts that didn't load reflow the text.
 
 ---
 
@@ -163,7 +199,7 @@ Evaluate against the original issue — NOT your own sense of "done."
 | Dimension | 1 (Fail) | 3 (Acceptable) | 5 (Excellent) |
 |-----------|----------|----------------|----------------|
 | **Issue completion** | Missing acceptance criteria | All criteria met | Criteria exceeded, edge cases handled |
-| **Visitor coverage** | Only happy path | Main pages/flows | All states, mobile + desktop, meta/OG correct |
+| **Visitor coverage** | Only happy path | Main pages/flows, OG image set | All states, mobile + desktop, page-specific OG card |
 | **Regression safety** | No tests added | Tests cover the change | Tests prevent this bug class recurring |
 | **Code quality** | Breaks conventions | Follows patterns (Base layout, voice rules) | Improves patterns |
 
@@ -186,8 +222,8 @@ ship, iterate, or rethink.
 Only after evaluation passes:
 
 1. Branch named `issue-{number}/{short-description}`
-2. Commit referencing the issue: `#{number}: {description}` (end commit body with
-   the standard `Co-Authored-By` trailer)
+2. Commit referencing the issue: `#{number}: {description}` (no `Co-Authored-By`
+   trailer — established preference)
 3. Open the PR with:
    - Title referencing the issue
    - Body including `Fixes #{number}` so the issue auto-closes on merge
