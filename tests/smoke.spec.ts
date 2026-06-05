@@ -12,6 +12,7 @@ const PAGES = [
   { path: '/skills/', heading: /^Skills\.?$/i },
   { path: '/about/', heading: /How I\s+work/i },
   { path: '/skills/magical-service-design/', heading: /Magical Service Design/i },
+  { path: '/skills/persona-exorcist/', heading: /Persona Exorcist/i },
 ];
 
 for (const { path, heading } of PAGES) {
