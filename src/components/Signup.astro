@@ -1,0 +1,93 @@
+---
+// Reusable inline newsletter signup. Self-contained and safe to drop in more
+// than once per page: state is scoped to the component root (no shared ids),
+// the submit script wires up every instance via querySelectorAll + closest().
+//
+// Each placement passes a distinct `campaign` so Beehiiv shows which spot
+// converts. The form POSTs JSON { email, campaign } to our /api/subscribe
+// proxy, which talks to Beehiiv server-side (the API key never reaches the
+// browser). Copy defaults to the original skill-page wording so existing
+// placements look unchanged; pass overrides for contextual placements.
+import { SUBSCRIBE_ENDPOINT } from '../data/skills';
+
+interface Props {
+  campaign: string;
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+  button?: string;
+  fine?: string;
+  successEyebrow?: string;
+  successBody?: string;
+}
+
+const {
+  campaign,
+  eyebrow = 'If it was useful',
+  heading = 'Want the next one in your inbox?',
+  body = "I build tools like this every so often. Drop your email and I'll send the occasional note. Nothing else.",
+  button = 'Keep me posted',
+  fine = 'No spam, no selling your address. Just me, occasionally.',
+  successEyebrow = "You're in ✓",
+  successBody = "That's it, you're on the list. I'll be in touch when there's something worth sending.",
+} = Astro.props;
+---
+
+<div class="signup" data-signup data-endpoint={SUBSCRIBE_ENDPOINT} data-campaign={campaign}>
+  <div class="gate">
+    <h4>{eyebrow}</h4>
+    <p class="head">{heading}</p>
+    <p>{body}</p>
+    <form novalidate>
+      <div class="input-group">
+        <input type="email" name="email_address" autocomplete="email" inputmode="email" placeholder="you@email.com" aria-label="Email address" required />
+        <button type="submit">{button}</button>
+      </div>
+      <p class="fine">{fine}</p>
+      <p class="msg error" role="alert" aria-live="assertive" hidden></p>
+    </form>
+  </div>
+
+  <div class="unlocked" role="status" aria-live="polite" tabindex="-1" hidden>
+    <h4>{successEyebrow}</h4>
+    <p class="head" style="margin-bottom:0;">{successBody}</p>
+  </div>
+</div>
+
+<script>
+  // One script for every <Signup> on the page. Scope all state to each root so
+  // multiple instances never collide and each shows its own success state.
+  document.querySelectorAll<HTMLDivElement>('[data-signup]').forEach((root) => {
+    const form = root.querySelector('form') as HTMLFormElement | null;
+    const gate = root.querySelector('.gate') as HTMLElement | null;
+    const done = root.querySelector('.unlocked') as HTMLElement | null;
+    const errEl = root.querySelector('.msg.error') as HTMLElement | null;
+    const btn = root.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const endpoint = root.dataset.endpoint ?? '/api/subscribe';
+    const campaign = root.dataset.campaign ?? '';
+    const label = btn?.textContent ?? 'Keep me posted';
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      if (errEl) errEl.hidden = true;
+      if (btn) { btn.disabled = true; btn.textContent = 'Adding you…'; }
+
+      const email = new FormData(form).get('email_address')?.toString() ?? '';
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email, campaign }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || !json.ok) throw new Error('failed');
+        if (gate) gate.hidden = true;
+        if (done) { done.hidden = false; done.focus(); done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      } catch {
+        if (errEl) { errEl.textContent = 'Hmm, that didn’t go through. Give it another shot?'; errEl.hidden = false; }
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+      }
+    });
+  });
+</script>

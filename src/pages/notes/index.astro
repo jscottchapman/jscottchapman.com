@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Signup from '../../components/Signup.astro';
 import { getCollection } from 'astro:content';
 
 const notes = (await getCollection('notes'))
@@ -41,6 +42,13 @@ const fmt = (d: Date) =>
           ))}
         </div>
       )}
+
+      <Signup
+        campaign="notes-index"
+        eyebrow="The notebook, by email"
+        heading="Want these in your inbox?"
+        body="I write these when there's something worth saying, not on a schedule. Drop your email and the next note comes to you. Nothing else."
+      />
     </div>
   </section>
 </Base>

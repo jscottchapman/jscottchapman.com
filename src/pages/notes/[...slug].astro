@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Share from '../../components/Share.astro';
+import Signup from '../../components/Signup.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -34,6 +35,13 @@ const fmt = (d: Date) =>
         <Content />
       </div>
       <Share title={entry.data.title} />
+
+      <Signup
+        campaign={`note:${entry.id}`}
+        eyebrow="If you got something out of this"
+        heading="Want the next note in your inbox?"
+        body="I write these when there's something worth saying, not on a schedule. Drop your email and I'll send the next one along. Nothing else."
+      />
     </div>
   </article>
 </Base>

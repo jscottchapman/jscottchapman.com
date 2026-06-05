@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Signup from '../components/Signup.astro';
 import { getCollection } from 'astro:content';
 
 const notes = (await getCollection('notes'))
@@ -119,6 +120,18 @@ const fmt = (d: Date) =>
       </div>
     </section>
   )}
+
+  <!-- QUIET SIGNUP -->
+  <section class="section">
+    <div class="wrap">
+      <Signup
+        campaign="homepage"
+        eyebrow="Keep in touch"
+        heading="The occasional note, by email."
+        body="Short pieces on building, shipping, and the AI tools I'm actually using. Drop your email and I'll send the next one. Nothing else."
+      />
+    </div>
+  </section>
 
   <!-- CLOSING / CONTACT -->
   <section class="closing">

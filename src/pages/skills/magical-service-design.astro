@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Share from '../../components/Share.astro';
-import { SUBSCRIBE_ENDPOINT } from '../../data/skills';
+import Signup from '../../components/Signup.astro';
 import skillSource from '../../data/magical-service-design.skill.txt?raw';
 
 const download = '/downloads/magical-service-design.skill';
@@ -66,24 +66,7 @@ const description =
       </div>
 
       <!-- OPTIONAL signup -->
-      <div class="gate" id="signup" data-endpoint={SUBSCRIBE_ENDPOINT} data-skill="magical-service-design">
-        <h4>If it was useful</h4>
-        <p class="head">Want the next one in your inbox?</p>
-        <p>I build tools like this every so often. Drop your email and I'll send the occasional note. Nothing else.</p>
-        <form id="signup-form" novalidate>
-          <div class="input-group">
-            <input type="email" name="email_address" autocomplete="email" inputmode="email" placeholder="you@email.com" aria-label="Email address" required />
-            <button type="submit" id="signup-submit">Keep me posted</button>
-          </div>
-          <p class="fine">No spam, no selling your address. Just me, occasionally.</p>
-          <p class="msg error" id="signup-error" role="alert" aria-live="assertive" hidden></p>
-        </form>
-      </div>
-
-      <div class="unlocked" id="signup-done" role="status" aria-live="polite" tabindex="-1" hidden>
-        <h4>You're in ✓</h4>
-        <p class="head" style="margin-bottom:0;">That's it, you're on the list. I'll be in touch when there's something worth sending.</p>
-      </div>
+      <Signup campaign="magical-service-design" />
     </div>
   </article>
 
@@ -98,38 +81,6 @@ const description =
         setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
       } catch {
         copyBtn.textContent = 'Press ⌘C';
-      }
-    });
-
-    // optional newsletter signup -> our /api/subscribe proxy (server-side Beehiiv)
-    const card = document.getElementById('signup');
-    const form = document.getElementById('signup-form') as HTMLFormElement | null;
-    const done = document.getElementById('signup-done');
-    const errEl = document.getElementById('signup-error');
-    const btn = document.getElementById('signup-submit') as HTMLButtonElement | null;
-    const endpoint = card?.getAttribute('data-endpoint') ?? '/api/subscribe';
-    const skill = card?.getAttribute('data-skill') ?? '';
-
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      errEl && (errEl.hidden = true);
-      if (btn) { btn.disabled = true; btn.textContent = 'Adding you…'; }
-
-      const email = new FormData(form).get('email_address')?.toString() ?? '';
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email, skill }),
-        });
-        const json = await res.json().catch(() => ({}));
-        if (!res.ok || !json.ok) throw new Error('failed');
-        card && (card.hidden = true);
-        if (done) { done.hidden = false; done.focus(); done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-      } catch {
-        if (errEl) { errEl.textContent = 'Hmm, that didn’t go through. Give it another shot?'; errEl.hidden = false; }
-        if (btn) { btn.disabled = false; btn.textContent = 'Keep me posted'; }
       }
     });
   </script>

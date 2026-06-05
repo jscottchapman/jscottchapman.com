@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'not_configured' }, 500);
   }
 
-  let payload: { email?: unknown; skill?: unknown };
+  let payload: { email?: unknown; campaign?: unknown; skill?: unknown };
   try {
     payload = await request.json();
   } catch {
@@ -30,20 +30,22 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const email = String(payload?.email ?? '').trim();
-  const skill = String(payload?.skill ?? '').trim();
+  // `campaign` is the current field (each signup placement passes its own);
+  // `skill` is kept as a fallback so anything still posting the old shape works.
+  const campaign = String(payload?.campaign ?? payload?.skill ?? '').trim();
   if (!EMAIL_RE.test(email)) {
     return json({ ok: false, error: 'invalid_email' }, 400);
   }
 
-  // source via utm_source, skill via utm_campaign. Using UTM params means this
-  // works with no Beehiiv-side custom-field setup, and both are segmentable.
+  // source via utm_source, placement via utm_campaign. Using UTM params means
+  // this works with no Beehiiv-side custom-field setup, and both are segmentable.
   const body = {
     email,
     reactivate_existing: true,
     send_welcome_email: true,
     utm_source: 'jscottchapman.com',
     utm_medium: 'website',
-    utm_campaign: skill || 'newsletter',
+    utm_campaign: campaign || 'newsletter',
     referring_site: 'https://jscottchapman.com',
   };
 
