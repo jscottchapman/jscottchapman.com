@@ -198,9 +198,10 @@ the pattern, and any one skill page may be deleted without taking it down.
 
 To publish a new skill at `/skills/<slug>/`:
 
-1. **Source + download.** Drop the skill's `SKILL.md` at
+1. **Source + download.** Single-file skill: drop the skill's `SKILL.md` at
    `src/data/<slug>.skill.txt` (shown on the page, imported with `?raw`) and a
-   downloadable copy at `public/downloads/<slug>.skill`.
+   downloadable copy at `public/downloads/<slug>.skill`. Bundled skill — see
+   step 5.
 2. **The page** — `src/pages/skills/<slug>.astro` is just props + intro prose:
 
    ```astro
@@ -224,9 +225,21 @@ To publish a new skill at `/skills/<slug>/`:
    lists on `/skills`.
 4. **OG card** — add a `CARDS` entry in `brand-assets/og.mjs` and render it (see
    [Share images](#share-images-og-cards)); the page points `ogImage` at it.
-5. **Multi-file skills:** the download is a single `SKILL.md` for now. If a skill
-   needs its bundled scripts to work, that's a real decision to raise (zip vs.
-   repo link), not something to paper over with an incomplete one-file download.
+5. **Multi-file (bundled) skills** — when a skill's `SKILL.md` tells you to run
+   bundled scripts or read reference files, a one-file download is a lie: it
+   points at code it doesn't include. Ship the whole bundle instead (pattern
+   set by Persona Exorcist, issue #9):
+   - **Canonical folder** at `src/data/<slug>/` mirroring the real skill
+     (`SKILL.md`, `scripts/*.py`, `references/*.md`). One source of truth for
+     both the page and the zip, so they can't drift.
+   - **Page** imports the displayed files with `?raw` and passes the extra ones
+     via `SkillPage`'s `extraSources={[{ label, source }]}` prop — each renders
+     as its own labelled, click-to-copy block below `SKILL.md`.
+   - **Download** is a zip of the folder at
+     `public/downloads/<slug>.skill.zip`, built by `brand-assets/skill-bundle.mjs`
+     (`node brand-assets/skill-bundle.mjs --only <slug>`); add a `BUNDLES` entry.
+     It unzips into `~/.claude/skills/<slug>/`. Point the page at it and set
+     `downloadLabel="Download the skill (.zip)"`.
 
 ---
 
