@@ -29,6 +29,9 @@ interface Props {
   sourceLabel: string;
   /** the raw skill text shown on the page and copied to the clipboard */
   source: string;
+  /** extra source blocks for a multi-file skill (e.g. bundled scripts), each
+   * its own labelled, click-to-copy viewer rendered below the SKILL.md block */
+  extraSources?: { label: string; source: string }[];
   /** href to the downloadable file */
   download: string;
   downloadHeading?: string;
@@ -50,6 +53,7 @@ const {
   shareTitle = `${name}, a free Claude skill`,
   sourceLabel,
   source,
+  extraSources = [],
   download,
   downloadHeading = 'Drop it into Claude and go.',
   downloadLabel = 'Download the skill (.skill)',
@@ -99,6 +103,18 @@ const schema = {
         </div>
         <pre data-copy-source>{source}</pre>
       </div>
+
+      <!-- BUNDLED FILES (multi-file skills): the scripts SKILL.md tells you to
+           run, shown here too so the page never references code it doesn't show. -->
+      {extraSources.map((extra) => (
+        <div class="source">
+          <div class="source-bar">
+            <span class="source-name">{extra.label}</span>
+            <button class="copy-btn" data-copy-btn type="button">Copy</button>
+          </div>
+          <pre data-copy-source>{extra.source}</pre>
+        </div>
+      ))}
 
       <!-- FREE DOWNLOAD -->
       <div class="unlocked">
