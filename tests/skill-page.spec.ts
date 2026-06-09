@@ -108,6 +108,18 @@ test('ticket-driven-dev-harness shows its reference files alongside SKILL.md', a
   await expect(blocks.filter({ hasText: 'storageState' })).toHaveCount(1); // testing.md only
 });
 
+test('skill pages carry datePublished/dateModified in the SoftwareApplication schema', async ({ page }) => {
+  // Schema-only dating: the page shows no visible date (a skill is an evergreen
+  // tool), but the JSON-LD must carry the freshness signal for search + AI
+  // engines. The dates come from src/data/skills.ts.
+  await page.goto('/skills/ticket-driven-dev-harness/');
+  const ld = await page.locator('script[type="application/ld+json"]').first().textContent();
+  const schema = JSON.parse(ld ?? '{}');
+  expect(schema['@type']).toBe('SoftwareApplication');
+  expect(schema.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(schema.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+});
+
 test('ticket-driven-dev-harness download is a complete zip bundle', async ({ page }) => {
   await page.goto('/skills/ticket-driven-dev-harness/');
   const dl = page.locator('a.download');

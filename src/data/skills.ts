@@ -6,7 +6,12 @@ export interface Skill {
   slug: string;
   name: string;
   tagline: string;
-  date: string; // ISO; shown as the "when"
+  date: string; // ISO publish date. Not shown on the page (a skill is an
+  // evergreen tool, not a dated post) but fed to the SoftwareApplication schema
+  // as datePublished and to the sitemap as lastmod — freshness signals for
+  // search + AI engines without stamping a "best before" date on the page.
+  updated?: string; // ISO; bump when a skill changes materially. Drives
+  // dateModified (the signal engines actually weight). Defaults to `date`.
   draft?: boolean;
 }
 
