@@ -11,7 +11,11 @@ import { test, expect } from '@playwright/test';
 // The single-file skill (magical-service-design) keeps its one block + .skill
 // download, which is the point of checking both: the layout serves both shapes.
 
-const SKILL_PAGES = ['/skills/magical-service-design/', '/skills/persona-exorcist/'];
+const SKILL_PAGES = [
+  '/skills/magical-service-design/',
+  '/skills/persona-exorcist/',
+  '/skills/ticket-driven-dev-harness/',
+];
 
 for (const path of SKILL_PAGES) {
   test(`${path} has copy, download, and signup from the shared layout`, async ({ page, context, browserName }) => {
@@ -73,6 +77,53 @@ test('persona-exorcist download is a complete zip bundle', async ({ page }) => {
   await page.goto('/skills/persona-exorcist/');
   const dl = page.locator('a.download');
   await expect(dl).toHaveAttribute('href', /\/downloads\/persona-exorcist\.skill\.zip$/);
+
+  // The bundle is actually fetchable (committed artifact, served statically) and
+  // is a real zip, not an HTML 404 body.
+  const href = await dl.getAttribute('href');
+  const res = await page.request.get(href!);
+  expect(res.status()).toBe(200);
+  const body = await res.body();
+  expect(body.slice(0, 2).toString('latin1')).toBe('PK'); // zip magic number
+});
+
+test('ticket-driven-dev-harness shows its reference files alongside SKILL.md', async ({ page }) => {
+  await page.goto('/skills/ticket-driven-dev-harness/');
+
+  // SKILL.md + references/trackers.md + references/testing.md = three source
+  // blocks, each with its own copy button — the page shows every file the
+  // bundle ships, not just the spine.
+  await expect(page.locator('.source')).toHaveCount(3);
+  await expect(page.locator('[data-copy-btn]')).toHaveCount(3);
+
+  // The reference blocks are labelled (scope to the label bar — these filenames
+  // also appear inside SKILL.md's own prose) and carry the real reference text.
+  await expect(page.locator('.source-name', { hasText: 'references/trackers.md' })).toHaveCount(1);
+  await expect(page.locator('.source-name', { hasText: 'references/testing.md' })).toHaveCount(1);
+  // Assert the reference *bodies* are on the page, using strings that live only
+  // in each reference file — not phrases SKILL.md also quotes, which would match
+  // the spine block too.
+  const blocks = page.locator('.source pre');
+  await expect(blocks.filter({ hasText: 'ankitpokhrel/jira-cli' })).toHaveCount(1); // trackers.md only
+  await expect(blocks.filter({ hasText: 'storageState' })).toHaveCount(1); // testing.md only
+});
+
+test('skill pages carry datePublished/dateModified in the SoftwareApplication schema', async ({ page }) => {
+  // Schema-only dating: the page shows no visible date (a skill is an evergreen
+  // tool), but the JSON-LD must carry the freshness signal for search + AI
+  // engines. The dates come from src/data/skills.ts.
+  await page.goto('/skills/ticket-driven-dev-harness/');
+  const ld = await page.locator('script[type="application/ld+json"]').first().textContent();
+  const schema = JSON.parse(ld ?? '{}');
+  expect(schema['@type']).toBe('SoftwareApplication');
+  expect(schema.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(schema.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+});
+
+test('ticket-driven-dev-harness download is a complete zip bundle', async ({ page }) => {
+  await page.goto('/skills/ticket-driven-dev-harness/');
+  const dl = page.locator('a.download');
+  await expect(dl).toHaveAttribute('href', /\/downloads\/ticket-driven-dev-harness\.skill\.zip$/);
 
   // The bundle is actually fetchable (committed artifact, served statically) and
   // is a real zip, not an HTML 404 body.

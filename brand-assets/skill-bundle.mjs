@@ -33,6 +33,7 @@ const DOWNLOADS = join(ROOT, 'public', 'downloads');
 // whose contents become the zip; `out` is the file written to public/downloads/.
 const BUNDLES = [
   { slug: 'persona-exorcist', src: 'persona-exorcist', out: 'persona-exorcist.skill.zip' },
+  { slug: 'ticket-driven-dev-harness', src: 'ticket-driven-dev-harness', out: 'ticket-driven-dev-harness.skill.zip' },
 ];
 
 const args = process.argv.slice(2);

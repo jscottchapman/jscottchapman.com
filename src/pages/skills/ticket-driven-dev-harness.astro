@@ -1,0 +1,36 @@
+---
+import SkillPage from '../../layouts/SkillPage.astro';
+import skillSource from '../../data/ticket-driven-dev-harness/SKILL.md?raw';
+import trackersSource from '../../data/ticket-driven-dev-harness/references/trackers.md?raw';
+import testingSource from '../../data/ticket-driven-dev-harness/references/testing.md?raw';
+
+const description =
+  'Turn a ticket into a reviewed, test-backed pull request. The harness detects your stack, writes the failing test before the code, gets your nod, then opens the PR that closes the ticket. A free Claude skill.';
+
+// A bundle: SKILL.md is the spine, but it leans on two reference files for the
+// per-tracker and per-framework specifics. The page shows all three, and the
+// download (a zip of the whole folder) is built from the same
+// src/data/ticket-driven-dev-harness/ source of truth.
+const extraSources = [
+  { label: 'ticket-driven-dev-harness / references/trackers.md', source: trackersSource },
+  { label: 'ticket-driven-dev-harness / references/testing.md', source: testingSource },
+];
+---
+
+<SkillPage
+  slug="ticket-driven-dev-harness"
+  name="Ticket-Driven Dev Harness"
+  description={description}
+  ogImage="/og-ticket-driven-dev-harness.png"
+  standfirst="A ticket goes in, a tested PR comes out. It detects your stack, writes the test before the code, gets your nod, then opens the PR that closes the ticket."
+  sourceLabel="ticket-driven-dev-harness / SKILL.md"
+  source={skillSource}
+  extraSources={extraSources}
+  download="/downloads/ticket-driven-dev-harness.skill.zip"
+  downloadLabel="Download the skill (.zip)"
+  downloadBlurb="The full bundle: SKILL.md plus the tracker and testing reference files. Unzip it into ~/.claude/skills, then point it at a ticket and let it run the loop."
+>
+  <p>Most coding agents write the code, then write tests that agree with it. That gets you a green suite that proves nothing, because the tests were taught the answer. This skill inverts that. It is a generator-evaluator loop where the evaluator is built first: the failing test gets written before a line of implementation, so the test specifies what should be built instead of confirming what was.</p>
+  <p>It is repo-agnostic. Before it touches anything it detects the issue tracker (Linear, GitHub Issues, Jira, or a pasted spec), the test framework, the package manager, and the target branch, then adapts. And it right-sizes the ceremony: a one-line fix gets a one-line plan and a single test, while a real feature gets the full plan, the user-journey tests, and a scored self-review. You stay the quality gate between phases, catching the scope drift and missing journeys an automated check never sees.</p>
+  <p>The whole thing is right here. Read it, copy it, or download it. If it turns one of your tickets into a PR you actually trust, tell me.</p>
+</SkillPage>

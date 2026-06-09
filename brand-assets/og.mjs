@@ -75,6 +75,18 @@ const CARDS = [
     headlineSize: 86,
     deckWidth: '30ch',
   },
+  {
+    out: 'og-ticket-driven-dev-harness.png',
+    eyebrowLeft: 'Ticket-Driven Dev Harness',
+    eyebrowRight: 'A free Claude skill',
+    headline: 'A ticket goes in. A tested <em>PR</em> comes out.',
+    deck: 'It detects your stack, writes the test before the code, gets your nod, then opens the PR that closes the ticket.',
+    footerLeft: 'jscottchapman.com / skills',
+    footerRight: 'J Scott Chapman',
+    accent: CLAY,
+    headlineSize: 86,
+    deckWidth: '32ch',
+  },
 ];
 
 const FONTS = `

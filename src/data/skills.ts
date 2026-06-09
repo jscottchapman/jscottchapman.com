@@ -6,11 +6,22 @@ export interface Skill {
   slug: string;
   name: string;
   tagline: string;
-  date: string; // ISO; shown as the "when"
+  date: string; // ISO publish date. Not shown on the page (a skill is an
+  // evergreen tool, not a dated post) but fed to the SoftwareApplication schema
+  // as datePublished and to the sitemap as lastmod — freshness signals for
+  // search + AI engines without stamping a "best before" date on the page.
+  updated?: string; // ISO; bump when a skill changes materially. Drives
+  // dateModified (the signal engines actually weight). Defaults to `date`.
   draft?: boolean;
 }
 
 export const skills: Skill[] = [
+  {
+    slug: 'ticket-driven-dev-harness',
+    name: 'Ticket-Driven Dev Harness',
+    tagline: 'A ticket goes in, a tested PR comes out. It writes the test before the code, gets your nod, then opens the PR that closes the ticket.',
+    date: '2026-06-08',
+  },
   {
     slug: 'persona-exorcist',
     name: 'Persona Exorcist',

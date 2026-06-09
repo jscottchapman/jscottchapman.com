@@ -9,6 +9,7 @@
 import Base from './Base.astro';
 import Share from '../components/Share.astro';
 import Signup from '../components/Signup.astro';
+import { skills } from '../data/skills';
 
 interface Props {
   /** url slug under /skills/<slug>/ — also the default signup campaign */
@@ -62,6 +63,13 @@ const {
 } = Astro.props;
 
 const site = 'https://jscottchapman.com';
+
+// Publish/modified dates come from src/data/skills.ts (the single source of
+// truth), not from props, so dating a skill is a one-line edit there and the
+// page never shows a stale "best before" date. datePublished/dateModified are
+// freshness signals for search + AI engines; dateModified is the one that
+// matters, so bump `updated` in skills.ts when a skill materially changes.
+const meta = skills.find((s) => s.slug === slug);
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -72,6 +80,7 @@ const schema = {
   url: `${site}/skills/${slug}/`,
   downloadUrl: `${site}${download}`,
   isAccessibleForFree: true,
+  ...(meta && { datePublished: meta.date, dateModified: meta.updated ?? meta.date }),
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@type': 'Person', name: 'J Scott Chapman', url: site },
 };
