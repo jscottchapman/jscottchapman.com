@@ -152,6 +152,7 @@ Before the full suite, verify end-to-end against a real server:
 - [ ] No new console errors on touched pages
 - [ ] Existing pages still build and render (regression check)
 - [ ] **New page? It has its own OG share image** (see [Share images](#share-images-og-cards) below) and the page passes it via `<Base ogImage="/og-<name>.png">`
+- [ ] **New page? It's listed in `public/llms.txt`** — one line under the right section (a skill goes under `## Skills`) so AI crawlers can see and cite it. `llms.txt` is hand-maintained; it does not update itself.
 
 ### Share images (OG cards)
 
@@ -222,10 +223,16 @@ To publish a new skill at `/skills/<slug>/`:
    campaign, and the `SoftwareApplication` schema from `slug`/`name`. Only pass
    what differs.
 3. **Index entry** — add the skill to `src/data/skills.ts` (newest first) so it
-   lists on `/skills`.
-4. **OG card** — add a `CARDS` entry in `brand-assets/og.mjs` and render it (see
+   lists on `/skills`. Its `date` feeds the page's `datePublished`/`dateModified`
+   schema and the sitemap `lastmod` automatically (no visible date — a skill is
+   an evergreen tool); bump the optional `updated` field when a skill materially
+   changes.
+4. **`llms.txt` entry** — add a one-line bullet under `## Skills` in
+   `public/llms.txt` (name, URL, what it does). This is the GEO surface AI
+   engines read; it is hand-maintained and will not update itself.
+5. **OG card** — add a `CARDS` entry in `brand-assets/og.mjs` and render it (see
    [Share images](#share-images-og-cards)); the page points `ogImage` at it.
-5. **Multi-file (bundled) skills** — when a skill's `SKILL.md` tells you to run
+6. **Multi-file (bundled) skills** — when a skill's `SKILL.md` tells you to run
    bundled scripts or read reference files, a one-file download is a lie: it
    points at code it doesn't include. Ship the whole bundle instead (pattern
    set by Persona Exorcist, issue #9):
