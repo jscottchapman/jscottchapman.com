@@ -12,6 +12,12 @@ export interface Skill {
 
 export const skills: Skill[] = [
   {
+    slug: 'ticket-driven-dev-harness',
+    name: 'Ticket-Driven Dev Harness',
+    tagline: 'A ticket goes in, a tested PR comes out. It writes the test before the code, gets your nod, then opens the PR that closes the ticket.',
+    date: '2026-06-08',
+  },
+  {
     slug: 'persona-exorcist',
     name: 'Persona Exorcist',
     tagline: 'Find every AI persona in a codebase, and the hidden channel that keeps resurrecting the one you already deleted.',
