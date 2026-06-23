@@ -1,0 +1,97 @@
+---
+// Stand-alone signup page. One job: get someone onto the list. Built to be
+// dropped into a LinkedIn post (or anywhere) as a soft call to action, so it
+// stays off the primary nav and leads straight with the form.
+//
+// Reuses the shared <Signup> component, which POSTs { email, campaign } to
+// /api/subscribe and talks to Beehiiv server-side. campaign="join" so the list
+// shows which signups came from this page.
+import Base from '../layouts/Base.astro';
+import Signup from '../components/Signup.astro';
+---
+
+<Base
+  title="Join the list · J Scott Chapman"
+  description="The occasional note on building AI products, shipping them, and finding out whether they actually worked. No fixed schedule, no spam, no selling your address."
+  ogImage="/og-join.png"
+  tagline="The occasional note, straight to your inbox."
+>
+  <section class="cover">
+    <div class="wrap">
+      <span class="kicker">the list ↓</span>
+      <h1>One email, <em>now and then</em>.</h1>
+      <p class="deck">I build AI products end to end, then write up what actually worked. Drop your email and the next one lands in your inbox. Nothing else.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="label"><span class="num">§</span> What lands in your inbox</div>
+
+      <div class="join-points">
+        <div class="jp">
+          <span class="jp-mark">01</span>
+          <b>Field notes, not announcements.</b>
+          <i>What I built, what broke, and whether it actually moved the number.</i>
+        </div>
+        <div class="jp">
+          <span class="jp-mark">02</span>
+          <b>The occasional free tool.</b>
+          <i>Claude skills and small utilities, the moment they're worth sharing.</i>
+        </div>
+        <div class="jp">
+          <span class="jp-mark">03</span>
+          <b>No fixed schedule.</b>
+          <i>A note when there's something worth sending. Never to fill a calendar slot.</i>
+        </div>
+      </div>
+
+      <Signup
+        campaign="join"
+        eyebrow="The list"
+        heading="Want the next one in your inbox?"
+        body="Drop your email below. That's the whole signup. Unsubscribe any time, one click, no hard feelings."
+        button="Sign me up"
+      />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .join-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+  }
+  .jp { padding: 28px 28px 32px; }
+  .jp + .jp { border-left: 1px solid var(--rule); }
+  .jp-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--clay);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .jp b {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.2;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .jp i {
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--mute);
+    display: block;
+  }
+  @media (max-width: 700px) {
+    .join-points { grid-template-columns: 1fr; }
+    .jp + .jp { border-left: 0; border-top: 1px solid var(--rule); }
+  }
+</style>

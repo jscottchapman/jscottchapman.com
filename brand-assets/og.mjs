@@ -87,6 +87,18 @@ const CARDS = [
     headlineSize: 86,
     deckWidth: '32ch',
   },
+  {
+    out: 'og-join.png',
+    eyebrowLeft: 'The list',
+    eyebrowRight: 'One email, now and then',
+    headline: 'The occasional note, worth the <em>inbox</em>.',
+    deck: 'I build AI products end to end, then write up what actually worked. No fixed schedule, no spam.',
+    footerLeft: 'jscottchapman.com / join',
+    footerRight: 'J Scott Chapman',
+    accent: CLAY,
+    headlineSize: 90,
+    deckWidth: '30ch',
+  },
 ];
 
 const FONTS = `
