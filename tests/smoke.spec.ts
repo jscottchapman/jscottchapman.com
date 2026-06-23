@@ -11,6 +11,7 @@ const PAGES = [
   { path: '/notes/', heading: /^Notes\.?$/i },
   { path: '/skills/', heading: /^Skills\.?$/i },
   { path: '/about/', heading: /How I\s+work/i },
+  { path: '/join/', heading: /One email/i },
   { path: '/skills/magical-service-design/', heading: /Magical Service Design/i },
   { path: '/skills/persona-exorcist/', heading: /Persona Exorcist/i },
 ];
