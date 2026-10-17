@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { inflateRawSync } from 'node:zlib';
 
 // Issue #7: every skill page is rendered by the shared SkillPage layout, so the
 // three behaviors must be present and working on each one: click-to-copy source,
@@ -148,4 +149,40 @@ test('click-to-copy puts the on-page skill source on the clipboard', async ({ pa
   const onClipboard = (await page.evaluate(() => navigator.clipboard.readText())).trim();
   expect(onClipboard.length).toBeGreaterThan(0);
   expect(onClipboard).toBe(onPage);
+});
+
+// Issue #18: Magical Service Design gained follow-up rounds that open with
+// "What if this was really fun?", and lost its em dashes (a site voice rule).
+// Its single-file .skill download is a hand-built zip, so it can silently lag
+// the page; the second test reads SKILL.md out of the zip and compares.
+
+// First file in a zip, read via the central directory (a local header's sizes
+// can be zero when the archiver streams with a data descriptor).
+function firstZipEntry(zip: Buffer): { name: string; text: string } {
+  const eocd = zip.lastIndexOf(Buffer.from([0x50, 0x4b, 0x05, 0x06]));
+  const cd = zip.readUInt32LE(eocd + 16);
+  const method = zip.readUInt16LE(cd + 10);
+  const size = zip.readUInt32LE(cd + 20);
+  const name = zip.toString('utf8', cd + 46, cd + 46 + zip.readUInt16LE(cd + 28));
+  const local = zip.readUInt32LE(cd + 42);
+  const start = local + 30 + zip.readUInt16LE(local + 26) + zip.readUInt16LE(local + 28);
+  const raw = zip.subarray(start, start + size);
+  return { name, text: (method === 8 ? inflateRawSync(raw) : raw).toString('utf8') };
+}
+
+test('magical-service-design source asks the fun question and has no em dashes', async ({ page }) => {
+  await page.goto('/skills/magical-service-design/');
+  const source = (await page.locator('[data-copy-source]').first().textContent()) ?? '';
+  expect(source).toContain('What if this was really fun?');
+  expect(source).not.toContain('—');
+});
+
+test('magical-service-design download carries the same SKILL.md the page shows', async ({ page }) => {
+  await page.goto('/skills/magical-service-design/');
+  const onPage = (await page.locator('[data-copy-source]').first().textContent())?.trim() ?? '';
+  const res = await page.request.get('/downloads/magical-service-design.skill');
+  expect(res.status()).toBe(200);
+  const entry = firstZipEntry(await res.body());
+  expect(entry.name).toBe('magical-service-design/SKILL.md');
+  expect(entry.text.trim()).toBe(onPage);
 });

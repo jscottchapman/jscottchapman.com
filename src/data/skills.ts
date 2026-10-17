@@ -33,6 +33,7 @@ export const skills: Skill[] = [
     name: 'Magical Service Design',
     tagline: 'A brainstorm partner that refuses to be boring. Describe a customer moment, get back ideas ranked by how audacious they are.',
     date: '2026-06-01',
+    updated: '2026-10-17',
   },
 ];
 
