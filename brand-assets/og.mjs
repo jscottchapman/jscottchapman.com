@@ -88,6 +88,18 @@ const CARDS = [
     deckWidth: '32ch',
   },
   {
+    out: 'og-calculus-tutor.png',
+    eyebrowLeft: 'Calculus Tutor',
+    eyebrowRight: 'A free Claude skill',
+    headline: 'Calculus, one step at a <em>time</em>.',
+    deck: 'Share the problem. It guides you through it, and you answer by letter, so you never type math.',
+    footerLeft: 'jscottchapman.com / skills',
+    footerRight: 'J Scott Chapman',
+    accent: CLAY,
+    headlineSize: 104,
+    deckWidth: '36ch',
+  },
+  {
     out: 'og-join.png',
     eyebrowLeft: 'The list',
     eyebrowRight: 'One email, now and then',

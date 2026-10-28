@@ -17,6 +17,12 @@ export interface Skill {
 
 export const skills: Skill[] = [
   {
+    slug: 'calculus-tutor',
+    name: 'Calculus Tutor',
+    tagline: 'Share a calculus problem and it walks you through it one step at a time. You answer with a letter, so you never type math.',
+    date: '2026-10-28',
+  },
+  {
     slug: 'ticket-driven-dev-harness',
     name: 'Ticket-Driven Dev Harness',
     tagline: 'A ticket goes in, a tested PR comes out. It writes the test before the code, gets your nod, then opens the PR that closes the ticket.',

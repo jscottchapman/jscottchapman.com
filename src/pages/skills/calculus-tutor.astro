@@ -1,0 +1,36 @@
+---
+import SkillPage from '../../layouts/SkillPage.astro';
+import skillSource from '../../data/calculus-tutor.skill.txt?raw';
+
+const description =
+  'A free Claude skill that tutors calculus one step at a time. It guides you to the answer instead of handing it over, and you reply by letter, so you never type math.';
+
+// A study aid, not a developer tool, so the schema says EducationalApplication.
+// featureList restates what SKILL.md does, in plain lines answer engines can lift.
+const featureList = [
+  'Reads the problem from a screenshot, a photo, or the web page you are viewing',
+  'Guides one step at a time instead of giving the answer',
+  'Offers lettered choices so the student never types math',
+  'Builds the wrong choices from common mistakes',
+  'Lets the student set the pace with hint, show this step, skip, or show me the rest',
+  'Ends with a takeaway, a quick way to check the answer, and an optional practice problem',
+];
+---
+
+<SkillPage
+  slug="calculus-tutor"
+  name="Calculus Tutor"
+  description={description}
+  ogImage="/og-calculus-tutor.png"
+  standfirst="Share a calculus problem and it walks you through it one step at a time. You answer with a letter, so you never type math."
+  sourceLabel="calculus-tutor / SKILL.md"
+  source={skillSource}
+  download="/downloads/calculus-tutor.skill"
+  downloadBlurb="Works in Claude Code or a Claude app. Drop it in, then share a problem and ask for help with it."
+  applicationCategory="EducationalApplication"
+  featureList={featureList}
+>
+  <p>Ask a chatbot for help with a calculus problem and it usually solves the whole thing. The homework gets done and nobody learns anything. Ask it to tutor you instead and you hit a second wall: it wants you to type your work, and typing math into a chat box is slow and miserable.</p>
+  <p>I wrote this skill to fix both. You share the problem as a screenshot, a photo, or the page you're already on. It tells you in plain words what the problem is asking, then gives you the first step as a nudge. When it needs an answer from you, it offers two to four lettered choices. The wrong choices come from common mistakes, so a wrong pick shows exactly what to explain. You set the pace. Say "hint", "show this step", "skip", or "show me the rest" and it does that.</p>
+  <p>The whole thing is right here. Read it, copy it, or download it. If it gets you or a student you know through a problem set, tell me.</p>
+</SkillPage>

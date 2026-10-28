@@ -14,6 +14,7 @@ const PAGES = [
   { path: '/join/', heading: /One email/i },
   { path: '/skills/magical-service-design/', heading: /Magical Service Design/i },
   { path: '/skills/persona-exorcist/', heading: /Persona Exorcist/i },
+  { path: '/skills/calculus-tutor/', heading: /Calculus Tutor/i },
 ];
 
 for (const { path, heading } of PAGES) {
