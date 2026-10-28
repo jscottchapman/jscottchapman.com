@@ -1,15 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
 import Signup from '../components/Signup.astro';
+import Panel from '../components/Panel.astro';
 import { getCollection } from 'astro:content';
+import { skills, stampFor } from '../data/skills';
 
 const notes = (await getCollection('notes'))
   .filter((n) => !n.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+// The newest skill owns the large cell; the rest take one square each.
+const [featured, ...others] = skills.filter((s) => !s.draft);
+const month = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' });
+const words = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const count = skills.filter((s) => !s.draft).length;
+const countWord = words[count] ?? String(count);
 ---
 
 <Base>
@@ -24,128 +30,187 @@ const fmt = (d: Date) =>
     sameAs: ['https://github.com/JScottChapman', 'https://www.linkedin.com/in/rvnvw/', 'https://x.com/RavenviewSrvcs'],
   })} />
 
-  <!-- COVER -->
-  <section class="cover">
-    <div class="wrap">
-      <span class="kicker">hello.</span>
-      <h1>I'm J Scott <em>Chapman</em>.</h1>
-      <p class="deck">I'm an AI product consultant. I build software end to end (usually solo, often in healthcare), stay close to the people using it, and find out whether it actually worked. Below: a few things I've built, and some notes I've been writing.</p>
-      <p class="byline">Based in <b>Missoula, Montana</b>. Ten years of shipping things and sticking around to see if they landed.</p>
-    </div>
-  </section>
-
-  <!-- A FEW THINGS I'VE BUILT -->
-  <section class="section">
-    <div class="wrap">
-      <div class="label"><span class="num">§1.</span> A few things I've built</div>
-      <h2>Three projects, three kinds of <em>actually working</em>.</h2>
-      <p class="lede">Each started as a sentence that didn't quite describe what was needed. The job, every time, was to find that out and then go build it.</p>
-
-      <article class="note">
-        <div class="meta">
-          <span class="yr">2025</span>
-          <span class="tag">Education · SMS</span>
-          <span class="role">solo build<br>scope, code,<br>customer calls</span>
+  <section class="wrap" aria-label="Free Claude skills">
+    <div class="lattice">
+      <div class="cell intro framed">
+        <h1>J Scott <br />Chapman</h1>
+        <div class="divider" aria-hidden="true"><i></i></div>
+        <p class="sub">Free Claude skills, built for my own work</p>
+        <p class="deck">I'm an AI product consultant in <b>Missoula, Montana</b>. I build software end to end, stay close to the people using it, and find out whether it actually worked. These are skills I made for my own work and decided to hand out. No email required.</p>
+        <div class="actions">
+          <a class="btn primary pierced" href="/skills/"><span class="gl" aria-hidden="true"><svg class="g4"><use href="#g4" /></svg></span><span class="tx">All {countWord} skills</span></a>
+          <a class="btn" href="/work/"><span class="tx">Read the work</span></a>
         </div>
-        <div class="body">
-          <h3>The text-the-students <em>problem</em>.</h3>
-          <p>The brief was one sentence: "What if we texted students reminders to study?" Turned out nobody could say which subjects students were actually struggling with. I built a platform that found each student's weakest area, sent a personalized link every morning, and gave admins a dashboard that showed what was moving.</p>
-          <div class="outcome">
-            <span><b>+100%</b>engagement, YoY</span>
-            <span><b>10 hrs / wk</b>admin time recovered</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="note">
-        <div class="meta">
-          <span class="yr">'19–'22</span>
-          <span class="tag">Health-tech · HIPAA</span>
-          <span class="role">sole developer<br>three years,<br>one product</span>
-        </div>
-        <div class="body">
-          <h3>The photocopy <em>upgrade</em>.</h3>
-          <p>Physical therapists were sending patients home with photocopied stick figures and hoping. I built Morphose, a HIPAA-compliant platform with 850+ interactive 3D exercise animations, progress tracking, and a therapist dashboard the clinicians actually trusted.</p>
-          <div class="outcome">
-            <span><b>850+</b>3D animations</span>
-            <span><b>Solo dev</b>frontend, backend, infra</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="note">
-        <div class="meta">
-          <span class="yr">2019</span>
-          <span class="tag">Medical devices</span>
-          <span class="role">engineering<br>at Estenda,<br>clinical team</span>
-        </div>
-        <div class="body">
-          <h3>From a <em>sensor on someone's arm</em> to a chart on a screen.</h3>
-          <p>For a continuous glucose monitor, I built the visualization layer doctors actually looked at. Most of the real work lived in the middle, where the data bounced from BLE to phone to cloud and had to still mean what it meant when it started.</p>
-          <div class="outcome">
-            <span><b>BLE → cloud</b>device pipeline</span>
-            <span><b>Pharma</b>end customer</span>
-          </div>
-        </div>
-      </article>
-
-      <p class="lede" style="margin-top:40px;margin-bottom:0;">
-        <a href="/work/" style="color:var(--clay);font-style:normal;">Read the longer versions →</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- NOTES TEASER -->
-  {notes.length > 0 && (
-    <section class="section">
-      <div class="wrap">
-        <div class="label"><span class="num">§2.</span> Lately</div>
-        <h2>Notes I've been <em>writing</em>.</h2>
-        <p class="lede">Short pieces on building, shipping, and the AI tools I'm actually using.</p>
-        <div class="entry-list">
-          {notes.map((n) => (
-            <a class="entry" href={`/notes/${n.id}/`}>
-              <span class="when">{fmt(n.data.date)}</span>
-              <span class="lede-row">
-                <h3>{n.data.title}</h3>
-                <p>{n.data.description}</p>
-              </span>
-              <span class="ar">→</span>
-            </a>
-          ))}
-        </div>
-        <p class="lede" style="margin-top:32px;margin-bottom:0;">
-          <a href="/notes/" style="color:var(--clay);font-style:normal;">All notes →</a>
-        </p>
       </div>
-    </section>
+
+      {featured && (
+        <article class="cell feat framed" aria-labelledby="feat-h">
+          <div class="feat-head">
+            <h2 id="feat-h" class="feat-name">{featured.name}</h2>
+            <p class="stamp"><b>Newest</b>{stampFor(featured)}</p>
+          </div>
+          <p class="tag">{featured.tagline}</p>
+          <p class="origin">{featured.origin}</p>
+
+          {featured.slug === 'calculus-tutor' && (
+            <div class="step" data-step>
+              <div class="step-head"><span>Example step</span><span>Pick a letter</span></div>
+              <div class="step-body">
+                <p class="q">Find the derivative of <i>f</i>(<i>x</i>) = <i>x</i>² sin <i>x</i>.</p>
+                <div class="answers" role="group" aria-label="Answer choices">
+                  <button class="ans" type="button" aria-pressed="false" data-k="a"><span class="l">A</span><span class="e">2<i>x</i> cos <i>x</i></span></button>
+                  <button class="ans" type="button" aria-pressed="false" data-k="b"><span class="l">B</span><span class="e">2<i>x</i> sin <i>x</i> + <i>x</i>² cos <i>x</i></span></button>
+                  <button class="ans" type="button" aria-pressed="false" data-k="c"><span class="l">C</span><span class="e">2<i>x</i> sin <i>x</i> − <i>x</i>² cos <i>x</i></span></button>
+                  <button class="ans" type="button" aria-pressed="false" data-k="d"><span class="l">D</span><span class="e"><i>x</i>² cos <i>x</i></span></button>
+                </div>
+                <p class="fb" aria-live="polite">Each wrong choice is a common mistake. Pick one to see what the tutor says about it.</p>
+              </div>
+            </div>
+          )}
+
+          <div class="feat-foot">
+            <a class="btn primary pierced" href={`/skills/${featured.slug}/`}><span class="gl" aria-hidden="true"><svg class="g4"><use href="#g4" /></svg></span><span class="tx">Read it, take it</span></a>
+            <p>Works in a Claude app, Claude in Chrome, or Claude Code.</p>
+          </div>
+        </article>
+      )}
+
+      {others.map((s) => (
+        <a class="cell skill" href={`/skills/${s.slug}/`}>
+          <h2 class="skill-name">{s.name}</h2>
+          <p class="tag">{s.tagline}</p>
+          <p class="origin">{s.origin}</p>
+          <span class="skill-foot">{stampFor(s)}</span>
+        </a>
+      ))}
+
+      <div class="cell free">
+        <div class="holes" aria-hidden="true"></div>
+        <div class="free-card">
+          <p>Every skill is free</p>
+          <p>Read the source on the page, copy it, or download it. No email required.</p>
+          <a class="btn" href="/skills/"><span class="tx">All skills</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Panel
+    title="A few things I've built"
+    id="built-h"
+    lede="Each started as a sentence that didn't quite describe what was needed. The job, every time, was to find that out and then go build it."
+  >
+    <article class="case f2">
+      <div class="fig hot"><strong>+100%</strong><span>engagement, year over year</span></div>
+      <div class="fig alt"><strong class="num">10 hrs</strong><span>admin time recovered each week</span></div>
+      <div class="case-text">
+        <h3>The text-the-students problem.</h3>
+        <p>The brief was one sentence: "What if we texted students reminders to study?" Turned out nobody could say which subjects students were actually struggling with. I built a platform that found each student's weakest area, sent a personalized link every morning, and gave admins a dashboard that showed what was moving.</p>
+      </div>
+      <dl class="meta">
+        <div><dt>Year</dt><dd class="num">2025</dd></div>
+        <div><dt>Area</dt><dd>Education and SMS</dd></div>
+        <div><dt>Role</dt><dd>Solo build: scope, code, customer calls</dd></div>
+      </dl>
+    </article>
+
+    <article class="case f1">
+      <div class="fig hot"><strong>850+</strong><span>interactive 3D exercise animations</span></div>
+      <div class="case-text">
+        <h3>The photocopy upgrade.</h3>
+        <p>Physical therapists were sending patients home with photocopied stick figures and hoping. I built Morphose, a HIPAA-compliant platform with 850+ interactive 3D exercise animations, progress tracking, and a therapist dashboard the clinicians actually trusted.</p>
+      </div>
+      <dl class="meta">
+        <div><dt>Years</dt><dd class="num">2019 to 2022</dd></div>
+        <div><dt>Area</dt><dd>Health tech and HIPAA</dd></div>
+        <div><dt>Role</dt><dd>Sole developer, three years, one product</dd></div>
+        <div><dt>Build</dt><dd>Solo dev: frontend, backend, infra</dd></div>
+      </dl>
+    </article>
+
+    <article class="case f0">
+      <div class="case-text">
+        <h3>From a sensor on someone's arm to a chart on a screen.</h3>
+        <p>For a continuous glucose monitor, I built the visualization layer doctors actually looked at. Most of the real work lived in the middle, where the data bounced from BLE to phone to cloud and had to still mean what it meant when it started.</p>
+      </div>
+      <dl class="meta">
+        <div><dt>Year</dt><dd class="num">2019</dd></div>
+        <div><dt>Area</dt><dd>Medical devices</dd></div>
+        <div><dt>Role</dt><dd>Engineering at Estenda, with the clinical team</dd></div>
+        <div><dt>Pipeline</dt><dd>BLE to cloud device pipeline</dd></div>
+        <div><dt>Customer</dt><dd>Pharma end customer</dd></div>
+      </dl>
+    </article>
+
+    <div class="after">
+      <a class="btn" href="/work/"><span class="tx">Read the longer versions</span></a>
+    </div>
+  </Panel>
+
+  {notes.length > 0 && (
+    <Panel
+      title="Notes I've been writing"
+      id="notes-h"
+      lede="Short pieces on building, shipping, and the AI tools I'm actually using."
+    >
+      <div class="note-list">
+        {notes.map((n) => (
+          <a class="note-row" href={`/notes/${n.id}/`}>
+            <time class="note-date" datetime={n.data.date.toISOString().slice(0, 10)}><strong>{month(n.data.date)}</strong><span class="num">{n.data.date.getUTCFullYear()}</span></time>
+            <div class="note-body"><h3>{n.data.title}</h3><p>{n.data.description}</p></div>
+          </a>
+        ))}
+      </div>
+      <div class="after">
+        <a class="btn" href="/notes/"><span class="tx">All notes</span></a>
+      </div>
+    </Panel>
   )}
 
-  <!-- QUIET SIGNUP -->
-  <section class="section">
+  <section class="wrap sec">
+    <Signup
+      campaign="homepage"
+      heading="The occasional note, by email."
+      body="Short pieces on building, shipping, and the AI tools I'm actually using. Drop your email and I'll send the next one. Nothing else."
+    />
+  </section>
+
+  <section class="closing" aria-labelledby="talk-h">
     <div class="wrap">
-      <Signup
-        campaign="homepage"
-        eyebrow="Keep in touch"
-        heading="The occasional note, by email."
-        body="Short pieces on building, shipping, and the AI tools I'm actually using. Drop your email and I'll send the next one. Nothing else."
-      />
+      <div class="pierce on-ink" aria-hidden="true"></div>
+      <div class="closing-inner">
+        <div>
+          <h2 id="talk-h">If this rhymes with how you work, let's talk.</h2>
+          <p>I take on a few engagements at a time, and I'm drawn to work where staying close to the customer is the job, not a side effect. Intro calls run about twenty minutes. If it isn't a fit, that's useful data on both sides.</p>
+        </div>
+        <ul class="links">
+          <li><a href="mailto:scott@ravenviewservices.com"><span class="k">Email</span><span class="v">scott@ravenviewservices.com</span></a></li>
+          <li><a href="https://www.linkedin.com/in/rvnvw/" target="_blank" rel="noopener noreferrer"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/rvnvw</span></a></li>
+          <li><a href="https://x.com/RavenviewSrvcs" target="_blank" rel="noopener noreferrer"><span class="k">X</span><span class="v">x.com/RavenviewSrvcs</span></a></li>
+          <li><a href="https://github.com/JScottChapman" target="_blank" rel="noopener noreferrer"><span class="k">GitHub</span><span class="v">github.com/JScottChapman</span></a></li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- CLOSING / CONTACT -->
-  <section class="closing">
-    <div class="wrap" style="display: contents;">
-      <div>
-        <h2>If this rhymes with how you work, let's talk.</h2>
-        <p>I take on a few engagements at a time, and I'm drawn to work where staying close to the customer is the job, not a side effect. Intro calls run about twenty minutes. If it isn't a fit, that's useful data on both sides.</p>
-      </div>
-      <ul class="links">
-        <li><span class="k">Email</span><a href="mailto:scott@ravenviewservices.com">scott@ravenviewservices.com</a><span class="ar">↗</span></li>
-        <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/rvnvw/" target="_blank" rel="noopener noreferrer">linkedin.com/in/rvnvw</a><span class="ar">↗</span></li>
-        <li><span class="k">X</span><a href="https://x.com/RavenviewSrvcs" target="_blank" rel="noopener noreferrer">x.com/RavenviewSrvcs</a><span class="ar">↗</span></li>
-        <li><span class="k">GitHub</span><a href="https://github.com/JScottChapman" target="_blank" rel="noopener noreferrer">github.com/JScottChapman</a><span class="ar">↗</span></li>
-      </ul>
-    </div>
-  </section>
+  <script>
+    // The example step: the chosen letter fills black, and the tutor's note
+    // explains the choice. Without JavaScript the question and choices still read.
+    const notes: Record<string, string> = {
+      a: '<b>Not quite.</b> That multiplies the two derivatives together, a common slip. The product rule adds two terms.',
+      b: '<b>Right.</b> The derivative of the first times the second, plus the first times the derivative of the second.',
+      c: '<b>Not quite.</b> That minus sign belongs to the quotient rule. The product rule adds the two terms.',
+      d: '<b>Not quite.</b> That differentiates sin x but leaves out the other term, 2x sin x.',
+    };
+    document.querySelectorAll<HTMLElement>('[data-step]').forEach((step) => {
+      const fb = step.querySelector<HTMLElement>('.fb');
+      const answers = step.querySelectorAll<HTMLButtonElement>('.ans');
+      answers.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          answers.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+          if (fb) fb.innerHTML = notes[btn.dataset.k ?? ''] ?? '';
+        });
+      });
+    });
+  </script>
 </Base>

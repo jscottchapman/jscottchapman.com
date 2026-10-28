@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-28T20:02:38+00:00",
+  "title": "Design System: J Scott Chapman",
+  "extensions": {
+    "colorMeta": {
+      "gallery-white": {
+        "role": "neutral",
+        "displayName": "Gallery White",
+        "canonical": "#F4F4F1",
+        "tonalRamp": [
+          "#141414",
+          "#26272A",
+          "#3B3D41",
+          "#55585C",
+          "#73767B",
+          "#9A9DA2",
+          "#C4C7CB",
+          "#EDEDEB"
+        ]
+      },
+      "lacquer-black": {
+        "role": "primary",
+        "displayName": "Lacquer Black",
+        "canonical": "#0F0F0F",
+        "tonalRamp": [
+          "#141414",
+          "#26272A",
+          "#3B3D41",
+          "#55585C",
+          "#73767B",
+          "#9A9DA2",
+          "#C4C7CB",
+          "#EDEDEB"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#4A4C50",
+        "tonalRamp": [
+          "#141414",
+          "#26272A",
+          "#3B3D41",
+          "#55585C",
+          "#73767B",
+          "#9A9DA2",
+          "#C4C7CB",
+          "#EDEDEB"
+        ]
+      },
+      "palladium": {
+        "role": "neutral",
+        "displayName": "Palladium",
+        "canonical": "#8C9096",
+        "tonalRamp": [
+          "#141414",
+          "#26272A",
+          "#3B3D41",
+          "#55585C",
+          "#73767B",
+          "#9A9DA2",
+          "#C4C7CB",
+          "#EDEDEB"
+        ]
+      },
+      "pewter": {
+        "role": "neutral",
+        "displayName": "Pewter",
+        "canonical": "#C4C7CB",
+        "tonalRamp": [
+          "#141414",
+          "#26272A",
+          "#3B3D41",
+          "#55585C",
+          "#73767B",
+          "#9A9DA2",
+          "#C4C7CB",
+          "#EDEDEB"
+        ]
+      },
+      "glint": {
+        "role": "neutral",
+        "displayName": "Glint",
+        "canonical": "#D9DCDF",
+        "tonalRamp": [
+          "#141414",
+          "#26272A",
+          "#3B3D41",
+          "#55585C",
+          "#73767B",
+          "#9A9DA2",
+          "#C4C7CB",
+          "#EDEDEB"
+        ]
+      },
+      "smoked-rule": {
+        "role": "neutral",
+        "displayName": "Smoked Rule",
+        "canonical": "#45484D",
+        "tonalRamp": [
+          "#141414",
+          "#26272A",
+          "#3B3D41",
+          "#55585C",
+          "#73767B",
+          "#9A9DA2",
+          "#C4C7CB",
+          "#EDEDEB"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name on the home page only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page-head h1 on every inner page."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Case-study titles, prose h2, note titles; sentence case for small caps."
+      },
+      "tab": {
+        "displayName": "Tab",
+        "purpose": "Black section tab capitals; skill names in cells use the family at a smaller size."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All interface copy."
+      },
+      "prose": {
+        "displayName": "Prose",
+        "purpose": "Note and skill-intro reading text, max 65ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase letterspaced nav, buttons, facts terms, stamps, footer."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Skill source panes and file names."
+      }
+    },
+    "shadows": [
+      {
+        "name": "facts-hairline",
+        "value": "-1px 0 0 #8C9096, 0 -1px 0 #8C9096",
+        "purpose": "Draws palladium dividers between facts-row entries so wrapped rows never double a line. Not elevation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Every transition and the glint."
+      },
+      {
+        "name": "state-fill",
+        "value": "background .25s, color .25s",
+        "purpose": "Controls filling black on hover, press, or current; cells use .3s."
+      },
+      {
+        "name": "glint",
+        "value": "11s loop, sweep in the first 24%, .6s delay (hole fields 1.6s)",
+        "purpose": "Silver highlight across pierced bands and hole fields; the only ambient motion. Off under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "720px"
+      },
+      {
+        "name": "masthead-stack",
+        "value": "960px"
+      },
+      {
+        "name": "tablet",
+        "value": "1099px"
+      },
+      {
+        "name": "desktop",
+        "value": "1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Black square-cell button with the four-square glyph cell; inverts on hover. One per view, for the main action.",
+      "html": "<a class=\"ds-btn ds-primary\" href=\"#\"><span class=\"ds-gl\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1\" y=\"1\" width=\"6\" height=\"6\" fill=\"currentColor\"/><rect x=\"9\" y=\"1\" width=\"6\" height=\"6\" fill=\"currentColor\"/><rect x=\"1\" y=\"9\" width=\"6\" height=\"6\" fill=\"currentColor\"/><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\" fill=\"currentColor\"/></svg></span><span class=\"ds-tx\">Read the source</span></a>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-btn{display:inline-flex;align-items:stretch;min-height:50px;padding:0;border:var(--rule) solid var(--ink);background:var(--white);color:var(--ink);text-decoration:none;font:500 12px/1.2 var(--body);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease);border-radius:0}.ds-btn .ds-gl{width:47px;display:grid;place-items:center;border-right:var(--rule) solid currentColor}.ds-btn .ds-tx{display:flex;align-items:center;padding:0 22px}.ds-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}.ds-primary{background:var(--ink);color:var(--white)}.ds-primary:hover{background:var(--white);color:var(--ink)}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Open square-cell button; fills black on hover.",
+      "html": "<a class=\"ds-btn\" href=\"#\"><span class=\"ds-tx\">All skills</span></a>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-btn{display:inline-flex;align-items:stretch;min-height:50px;padding:0;border:var(--rule) solid var(--ink);background:var(--white);color:var(--ink);text-decoration:none;font:500 12px/1.2 var(--body);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease);border-radius:0}.ds-btn .ds-gl{width:47px;display:grid;place-items:center;border-right:var(--rule) solid currentColor}.ds-btn .ds-tx{display:flex;align-items:center;padding:0 22px}.ds-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}.ds-btn:hover{background:var(--ink);color:var(--white)}"
+    },
+    {
+      "name": "Email Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Ruled field with the submit cell attached inside one border; the whole field takes focus.",
+      "html": "<form class=\"ds-field\" onsubmit=\"return false\"><input type=\"email\" placeholder=\"you@email.com\" aria-label=\"Email\"><button class=\"ds-sub\"><span class=\"ds-g\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1\" y=\"1\" width=\"6\" height=\"6\" fill=\"currentColor\"/><rect x=\"9\" y=\"1\" width=\"6\" height=\"6\" fill=\"currentColor\"/><rect x=\"1\" y=\"9\" width=\"6\" height=\"6\" fill=\"currentColor\"/><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\" fill=\"currentColor\"/></svg></span><span class=\"ds-t\">Keep me posted</span></button></form>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-field{display:flex;border:var(--rule) solid var(--ink);background:var(--white);max-width:520px}.ds-field:focus-within{outline:2px solid var(--ink);outline-offset:3px}.ds-field input{flex:1;min-width:0;height:54px;padding:0 18px;border:0;border-radius:0;background:var(--white);font:400 17px/1 var(--body);color:var(--ink)}.ds-field input:focus{outline:none}.ds-field input::placeholder{color:#6A6D72}.ds-sub{display:flex;align-items:stretch;padding:0;border:0;border-left:var(--rule) solid var(--ink);background:var(--ink);color:var(--white);font:500 12px/1.2 var(--body);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease)}.ds-sub .ds-g{width:47px;display:grid;place-items:center;border-right:var(--rule) solid currentColor}.ds-sub .ds-t{display:flex;align-items:center;padding:0 22px}.ds-sub:hover{background:var(--white);color:var(--ink)}"
+    },
+    {
+      "name": "Masthead Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Ruled masthead links separated by pierced strips; hover and current page fill black.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">Notes</a><a href=\"#\">Skills</a><a href=\"#\">About</a></nav>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-nav{display:flex;border:var(--rule) solid var(--ink);width:fit-content}.ds-nav a{display:flex;align-items:center;justify-content:center;position:relative;min-width:124px;height:56px;padding:0 24px;text-decoration:none;color:var(--ink);font:500 12.5px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;transition:background .25s var(--ease),color .25s var(--ease)}.ds-nav a+a{border-left:1px dashed var(--ink)}.ds-nav a:hover,.ds-nav a[aria-current=page]{background:var(--ink);color:var(--white)}.ds-nav a:focus-visible{outline:2px solid currentColor;outline-offset:-6px}"
+    },
+    {
+      "name": "Section Panel",
+      "kind": "custom",
+      "refersTo": "section-tab",
+      "description": "Black tab on the top-left edge of one ruled frame, with corner studs and an optional lede row.",
+      "html": "<section><h2 class=\"ds-tab\">Notes I've been writing</h2><div class=\"ds-frame\"><div class=\"ds-lede\">Short pieces on building, shipping, and the AI tools I'm actually using.</div></div></section>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-tab{display:flex;align-items:center;gap:16px;width:fit-content;margin:0;padding:14px 24px 13px;background:var(--ink);color:var(--white);font:400 19px/1.2 var(--display);letter-spacing:.16em;text-transform:uppercase}.ds-tab::before,.ds-tab::after{content:'';width:7px;height:7px;background:var(--white)}.ds-frame{position:relative;border:var(--rule) solid var(--ink)}.ds-frame::after{content:'';position:absolute;inset:-6px;pointer-events:none;background:linear-gradient(var(--ink),var(--ink)) right top/9px 9px no-repeat,linear-gradient(var(--ink),var(--ink)) left bottom/9px 9px no-repeat,linear-gradient(var(--ink),var(--ink)) right bottom/9px 9px no-repeat}.ds-lede{padding:24px 36px 26px;color:var(--ink-2);font:400 17.5px/1.6 var(--body)}"
+    },
+    {
+      "name": "Skill Cell",
+      "kind": "card",
+      "refersTo": "lattice-cell",
+      "description": "A square lattice cell that is itself the link; fills black on hover.",
+      "html": "<div class=\"ds-lattice\"><a class=\"ds-skill\" href=\"#\"><h3>Persona Exorcist</h3><p class=\"ds-tag\">Find every AI persona in a codebase, and the hidden channel that keeps resurrecting the one you already deleted.</p><span class=\"ds-foot\">Added Jun 2026</span></a><a class=\"ds-skill\" href=\"#\"><h3>Ticket-Driven Dev Harness</h3><p class=\"ds-tag\">A ticket goes in, a tested PR comes out.</p><span class=\"ds-foot\">Added Jun 2026</span></a></div>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-lattice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--rule);background:var(--ink);border:var(--rule) solid var(--ink);max-width:640px}.ds-skill{aspect-ratio:1;display:flex;flex-direction:column;padding:28px 28px 24px;background:var(--white);color:var(--ink);text-decoration:none;transition:background .3s var(--ease),color .3s var(--ease)}.ds-skill h3{margin:0;font:400 22px/1.15 var(--display);letter-spacing:.08em;text-transform:uppercase}.ds-tag{margin:12px 0 0;font:400 15.5px/1.5 var(--body)}.ds-foot{margin-top:auto;font:500 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}.ds-skill:hover{background:var(--ink);color:var(--white)}.ds-skill:hover .ds-foot{color:var(--pewter)}.ds-skill:focus-visible{outline:2px solid var(--ink);outline-offset:-8px}"
+    },
+    {
+      "name": "Case Figure",
+      "kind": "custom",
+      "refersTo": "lattice-cell",
+      "description": "Outcome number squares; the lead figure is the hot black square.",
+      "html": "<div class=\"ds-case\"><div class=\"ds-fig ds-hot\"><strong>+100%</strong><span>Engagement, year over year</span></div><div class=\"ds-fig\"><strong>10 hrs</strong><span>Admin time recovered each week</span></div></div>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-case{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:var(--rule) solid var(--ink);max-width:520px}.ds-fig{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:var(--white);color:var(--ink)}.ds-fig+.ds-fig{border-left:var(--rule) solid var(--ink)}.ds-fig strong{font:400 56px/1 var(--display);letter-spacing:.02em;font-variant-numeric:lining-nums tabular-nums}.ds-fig span{margin-top:16px;font:500 11.5px/1.45 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);max-width:20ch}.ds-hot{background:var(--ink);color:var(--white)}.ds-hot span{color:var(--pewter)}"
+    },
+    {
+      "name": "Pierced Band",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "A strip of square holes crossed by a slow silver glint; the site's only ambient motion.",
+      "html": "<div class=\"ds-pierce\" aria-hidden=\"true\"></div>",
+      "css": ":host{--white:#F4F4F1;--ink:#0F0F0F;--ink-2:#4A4C50;--palladium:#8C9096;--pewter:#C4C7CB;--glint:#D9DCDF;--line-dark:#45484D;--rule:1.5px;--display:'Marcellus SC','Times New Roman',serif;--body:'Jost','Futura',system-ui,sans-serif;--mono:'Red Hat Mono',ui-monospace,monospace;--ease:cubic-bezier(.16,1,.3,1);--hole:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='2' y='2' width='8' height='8'/%3E%3C/svg%3E\");}.ds-pierce{height:12px;background:linear-gradient(100deg,var(--ink) 0 44%,var(--glint) 48.5%,#FFFFFF 50%,var(--glint) 51.5%,var(--ink) 56% 100%);background-size:360% 100%;background-position:100% 0;-webkit-mask:var(--hole) 0 0/12px 12px space;mask:var(--hole) 0 0/12px 12px space;animation:ds-glint 11s var(--ease) .6s infinite}@keyframes ds-glint{0%{background-position:100% 0}24%,100%{background-position:0 0}}@media (prefers-reduced-motion:reduce){.ds-pierce{animation:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Gridsmith Showroom",
+    "overview": "The site is a Wiener Werkstätte showroom built as a lattice. Every skill, case study, and note sits in a ruled square cell, and cells share their edges so the page reads as one continuous grid of lacquer-black lines on gallery white. The newest skill gets the largest cell. Nothing floats: a block either sits in a cell, hangs from a black tab, or rides inside a ruled frame.\n\nThe palette is achromatic on purpose. Black and white do all the work, palladium and pewter carry hairlines and quiet text, and the only warmth is in the type. Marcellus SC supplies letterspaced inscriptional capitals for names and headings; Jost carries everything a reader actually reads, in sentence case. Ornament comes from one family of square devices: pierced bands of square holes, square corner studs on frames, square bullets, and a four-square glyph. Every control is a square cell that fills solid black when hovered, pressed, or current.\n\nDensity is generous between sections and tight inside them. Motion is a single slow silver glint that crosses the pierced bands every eleven seconds; state changes are quick color fills; the only thing that moves on interaction is the FAQ plus mark turning to a minus. The retired cream-and-terracotta field-journal look does not return in any form.",
+    "keyCharacteristics": [
+      "One lattice: 4 square columns on desktop, 2 on tablet, 1 on phone, joined by 1.5px black rules.",
+      "Achromatic palette; black fills mark state, emphasis, and the closing band.",
+      "Letterspaced Marcellus SC capitals for display, Jost sentence case for reading.",
+      "Square devices only: pierced bands, corner studs, square bullets, the four-square glyph.",
+      "Zero radius and zero drop shadow anywhere.",
+      "One ambient motion: the silver glint on pierced bands."
+    ],
+    "rules": [
+      {
+        "name": "The Black Means State Rule",
+        "body": "A black fill on a control or cell means hovered, pressed, open, or current. The primary button is the one standing exception: it starts black and inverts to white on hover.",
+        "section": "colors"
+      },
+      {
+        "name": "The Hairline Hierarchy Rule",
+        "body": "Structure is drawn in lacquer black at 1.5px; subdivision inside a cell is drawn in palladium at 1px. Palladium never carries text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Cases Rule",
+        "body": "Display capitals are letterspaced (0.03em to 0.24em) and carry a negative right margin equal to their tracking so centered lines stay centered. Jost is always sentence case except in the uppercase label role.",
+        "section": "typography"
+      },
+      {
+        "name": "The Reading Face Rule",
+        "body": "Anything longer than two lines is Jost. Marcellus SC is for names, headings, figures, pull quotes, and single short lines.",
+        "section": "typography"
+      },
+      {
+        "name": "The Re-count Rule",
+        "body": "At a narrower width the lattice drops columns; it never stretches a square or shrinks the rule.",
+        "section": "layout"
+      },
+      {
+        "name": "The One Frame Rule",
+        "body": "A section has exactly one outer border. Rows inside it divide with a top rule; they do not box themselves.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Lacquer Rule",
+        "body": "Nothing lifts. A surface gains presence by turning black or gaining a frame, never by casting a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** put every new block in a lattice cell, a section panel, or a framed cell; join cells with the 1.5px black rule.",
+      "**Do** keep squares square and let the grid drop columns (4, 2, 1) as width falls.",
+      "**Do** make the whole cell the control when a cell links somewhere, and fill it black on hover.",
+      "**Do** use the four-square glyph only in the leading cell of primary buttons.",
+      "**Do** draw subdivisions inside a cell in palladium at 1px, and reserve graphite and pewter for secondary text on white and black respectively.",
+      "**Do** set display type in Marcellus SC with letterspacing, and all reading text in Jost sentence case.",
+      "**Do** honor reduced motion: the glint stops and transitions are removed."
+    ],
+    "donts": [
+      "**Don't** round any corner or add a drop shadow.",
+      "**Don't** introduce a hue. The palette is black, white, and the three greys.",
+      "**Don't** add motion beyond the pierced-band glint, quick color fills on state change, and the FAQ marker's turn.",
+      "**Don't** use circles, dots, or ornaments outside the square vocabulary for bullets, markers, or dividers.",
+      "**Don't** box rows inside a section panel; the panel frame is the only outer border.",
+      "**Don't** bring back the field-journal look: no cream paper, terracotta accent, section numbers, or newspaper styling.",
+      "**Don't** use an em dash anywhere, and write the name as \"J Scott Chapman\"."
+    ]
+  }
+}

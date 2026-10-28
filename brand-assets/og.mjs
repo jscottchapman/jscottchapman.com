@@ -1,4 +1,4 @@
-// Share images (OG cards) for jscottchapman.com — one command, on brand.
+// Share images (OG cards) for jscottchapman.com: one command, on brand.
 //
 //   node brand-assets/og.mjs                # render any card missing from public/
 //   node brand-assets/og.mjs --only skill   # render just one (by `out` or its name)
@@ -17,10 +17,14 @@
 //  - Changing an image a page ALREADY ships? Give it a NEW filename. Crawlers
 //    (LinkedIn, X, iMessage, Slack) cache OG images hard by URL; same filename =
 //    stale preview. New filename is the reliable cache-bust. That's why the
-//    default here SKIPS files that already exist — it never silently overwrites
+//    default here SKIPS files that already exist: it never silently overwrites
 //    a live, cached card. Use --force only for a deliberate redesign.
 //  - Fonts must be loaded before the screenshot or the text reflows. We wait on
 //    document.fonts.ready; keep that.
+//  - Headlines shrink to fit (at most three lines), so a long one never runs
+//    into the footer. `headlineSize` is the starting size, not a promise.
+//  - The `-lattice` suffix marks the October 2026 Vienna Lattice redesign. The
+//    older cream cards stay in public/ so links shared before it keep working.
 import { chromium } from '@playwright/test';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -28,140 +32,150 @@ import { existsSync } from 'node:fs';
 
 const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
-// Brand tokens — mirror src/styles/global.css.
-const PAPER = '#F1ECE0';
-const INK = '#1F1B14';
-const INK2 = '#3B362A';
-const CLAY = '#B5532A';
-const MUTE = '#6A6356';
+// Brand tokens: mirror src/styles/global.css and DESIGN.md.
+const WHITE = '#F4F4F1';
+const BLACK = '#0F0F0F';
+const GRAPHITE = '#4A4C50';
+const PALLADIUM = '#8C9096';
 
-// One card per page. `headline` may contain a single <em>…</em>; it renders
-// italic clay — the signature one-word lift. `accent` is the bottom border bar
-// (ink reads as the site itself; clay reads lighter, e.g. a free skill).
+// One card per page. `tab` sits in the black tab on the frame's top-left edge.
+// `headline` may contain <em>, which renders upright: the lattice has no italic.
 const CARDS = [
   {
-    out: 'og-home.png',
-    eyebrowLeft: 'A field journal',
-    eyebrowRight: 'Missoula, Montana',
-    headline: 'J Scott <em>Chapman</em>',
+    out: 'og-home-lattice.png',
+    tab: 'Free Claude skills',
+    label: 'Missoula, Montana',
+    headline: 'J Scott Chapman',
     deck: 'An AI product consultant who builds the thing, ships it, and finds out whether it worked.',
     footerLeft: 'jscottchapman.com',
     footerRight: 'AI Product Consultant',
-    accent: INK,
-    headlineSize: 132,
-    deckWidth: '24ch',
+    headlineSize: 118,
+    deckWidth: '34ch',
   },
   {
-    out: 'og-skill.png',
-    eyebrowLeft: 'Magical Service Design',
-    eyebrowRight: 'A free Claude skill',
-    headline: 'Brainstorming, but it refuses to be <em>boring</em>.',
+    out: 'og-skill-lattice.png',
+    tab: 'A free Claude skill',
+    label: 'Magical Service Design',
+    headline: 'Brainstorming, but it refuses to be boring.',
     deck: 'Describe a customer moment. Get back ideas ranked by how audacious they are.',
     footerLeft: 'jscottchapman.com / skills',
     footerRight: 'J Scott Chapman',
-    accent: CLAY,
-    headlineSize: 92,
-    deckWidth: '30ch',
+    headlineSize: 76,
+    deckWidth: '40ch',
   },
   {
-    out: 'og-persona-exorcist.png',
-    eyebrowLeft: 'Persona Exorcist',
-    eyebrowRight: 'A free Claude skill',
-    headline: 'The persona you deleted keeps coming <em>back</em>.',
+    out: 'og-persona-exorcist-lattice.png',
+    tab: 'A free Claude skill',
+    label: 'Persona Exorcist',
+    headline: 'The persona you deleted keeps coming back.',
     deck: 'Find every AI persona in a codebase, and the channel still summoning the ghost.',
     footerLeft: 'jscottchapman.com / skills',
     footerRight: 'J Scott Chapman',
-    accent: CLAY,
-    headlineSize: 86,
-    deckWidth: '30ch',
+    headlineSize: 76,
+    deckWidth: '40ch',
   },
   {
-    out: 'og-ticket-driven-dev-harness.png',
-    eyebrowLeft: 'Ticket-Driven Dev Harness',
-    eyebrowRight: 'A free Claude skill',
-    headline: 'A ticket goes in. A tested <em>PR</em> comes out.',
+    out: 'og-ticket-driven-dev-harness-lattice.png',
+    tab: 'A free Claude skill',
+    label: 'Ticket-Driven Dev Harness',
+    headline: 'A ticket goes in. A tested PR comes out.',
     deck: 'It detects your stack, writes the test before the code, gets your nod, then opens the PR that closes the ticket.',
     footerLeft: 'jscottchapman.com / skills',
     footerRight: 'J Scott Chapman',
-    accent: CLAY,
-    headlineSize: 86,
-    deckWidth: '32ch',
+    headlineSize: 76,
+    deckWidth: '44ch',
   },
   {
-    out: 'og-calculus-tutor.png',
-    eyebrowLeft: 'Calculus Tutor',
-    eyebrowRight: 'A free Claude skill',
-    headline: 'Calculus, one step at a <em>time</em>.',
+    out: 'og-calculus-tutor-lattice.png',
+    tab: 'A free Claude skill',
+    label: 'Calculus Tutor',
+    headline: 'Calculus, one step at a time.',
     deck: 'Share the problem. It guides you through it, and you answer by letter, so you never type math.',
     footerLeft: 'jscottchapman.com / skills',
     footerRight: 'J Scott Chapman',
-    accent: CLAY,
-    headlineSize: 104,
-    deckWidth: '36ch',
+    headlineSize: 84,
+    deckWidth: '40ch',
   },
   {
-    out: 'og-join.png',
-    eyebrowLeft: 'The list',
-    eyebrowRight: 'One email, now and then',
-    headline: 'The occasional note, worth the <em>inbox</em>.',
+    out: 'og-join-lattice.png',
+    tab: 'One email, now and then',
+    label: 'The list',
+    headline: 'The occasional note, worth the inbox.',
     deck: 'I build AI products end to end, then write up what actually worked. No fixed schedule, no spam.',
     footerLeft: 'jscottchapman.com / join',
     footerRight: 'J Scott Chapman',
-    accent: CLAY,
-    headlineSize: 90,
-    deckWidth: '30ch',
+    headlineSize: 76,
+    deckWidth: '40ch',
   },
 ];
 
 const FONTS = `
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">`;
+<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">`;
 
 const card = (c) => `<!doctype html><html lang="en"><head><meta charset="utf-8">${FONTS}
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 1200px; height: 630px; }
-  body {
-    background: ${PAPER};
-    color: ${INK};
-    font-family: 'IBM Plex Sans', sans-serif;
-    padding: 64px 80px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-bottom: 16px solid ${c.accent ?? INK};
-    overflow: hidden;
+  body { background: ${WHITE}; color: ${BLACK}; font-family: 'Jost', sans-serif; padding: 36px; overflow: hidden; }
+  .frame {
+    position: relative; height: 100%; border: 2px solid ${BLACK};
+    outline: 1px solid ${PALLADIUM}; outline-offset: -12px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 30px 64px 0;
   }
-  .top {
-    display: flex; justify-content: space-between; align-items: baseline;
-    font-size: 17px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: ${INK2}; border-bottom: 3px double ${INK}; padding-bottom: 18px;
+  .stud { position: absolute; width: 14px; height: 14px; background: ${BLACK}; }
+  .stud.tl { top: -8px; left: -8px; } .stud.tr { top: -8px; right: -8px; }
+  .stud.bl { bottom: -8px; left: -8px; } .stud.br { bottom: -8px; right: -8px; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; margin: -32px -66px 0; }
+  .tab {
+    background: ${BLACK}; color: ${WHITE}; font-weight: 600; font-size: 16px;
+    letter-spacing: 0.22em; text-transform: uppercase; padding: 16px 26px 15px 30px;
   }
-  .top .lead { font-weight: 600; color: ${INK}; }
-  .mid { padding: 8px 0 0; }
+  .label {
+    font-weight: 500; font-size: 15px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: ${GRAPHITE}; padding: 46px 66px 0 0;
+  }
+  .mid { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 12px 0 18px; }
   h1 {
-    font-family: 'Newsreader', serif; font-weight: 500;
-    font-size: ${c.headlineSize ?? 100}px; line-height: 0.96;
-    letter-spacing: -0.02em; max-width: 18ch;
+    font-family: 'Marcellus SC', serif; font-weight: 400; font-size: ${c.headlineSize ?? 80}px;
+    line-height: 1.08; letter-spacing: 0.05em; max-width: 21ch; text-wrap: balance;
   }
-  h1 em { font-style: italic; color: ${CLAY}; }
-  .deck {
-    font-family: 'Newsreader', serif; font-style: italic; font-size: 31px;
-    line-height: 1.38; color: ${INK2}; max-width: ${c.deckWidth ?? '30ch'};
-    margin-top: 28px;
+  h1 em { font-style: normal; }
+  .deck { font-size: 27px; line-height: 1.42; color: ${GRAPHITE}; max-width: ${c.deckWidth ?? '40ch'}; margin-top: 26px; }
+  .pierce {
+    height: 12px; margin: 0 -2px;
+    background: repeating-linear-gradient(90deg, ${BLACK} 0 12px, transparent 12px 24px);
   }
   .bottom {
     display: flex; justify-content: space-between; align-items: baseline;
-    font-size: 18px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: ${MUTE}; padding-bottom: 40px;
+    font-size: 16px; letter-spacing: 0.2em; text-transform: uppercase; color: ${GRAPHITE};
+    padding: 20px 0 26px;
   }
-  .bottom .site { color: ${CLAY}; font-weight: 600; }
+  .bottom .site { color: ${BLACK}; font-weight: 600; }
 </style></head><body>
-  <div class="top"><span class="lead">${c.eyebrowLeft}</span><span>${c.eyebrowRight}</span></div>
-  <div class="mid"><h1>${c.headline}</h1><p class="deck">${c.deck}</p></div>
-  <div class="bottom"><span class="site">${c.footerLeft}</span><span>${c.footerRight}</span></div>
+  <div class="frame">
+    <span class="stud tl"></span><span class="stud tr"></span><span class="stud bl"></span><span class="stud br"></span>
+    <div class="top"><span class="tab">${c.tab}</span><span class="label">${c.label}</span></div>
+    <div class="mid"><h1>${c.headline}</h1><p class="deck">${c.deck}</p></div>
+    <div class="pierce"></div>
+    <div class="bottom"><span class="site">${c.footerLeft}</span><span>${c.footerRight}</span></div>
+  </div>
 </body></html>`;
+
+// Shrink the headline until it holds three lines or fewer and the middle block
+// fits its space. Runs in the page, after fonts load.
+const fitHeadline = () => {
+  const h1 = document.querySelector('h1');
+  const mid = document.querySelector('.mid');
+  let size = parseFloat(getComputedStyle(h1).fontSize);
+  const lines = () => Math.round(h1.getBoundingClientRect().height / (size * 1.08));
+  while (size > 40 && (lines() > 3 || mid.scrollHeight > mid.clientHeight)) {
+    size -= 2;
+    h1.style.fontSize = size + 'px';
+  }
+};
 
 const args = process.argv.slice(2);
 const force = args.includes('--force');
@@ -180,6 +194,7 @@ for (const c of CARDS) {
   const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
   await page.setContent(card(c), { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(fitHeadline);
   await page.waitForTimeout(150);
   await page.screenshot({ path: dest, clip: { x: 0, y: 0, width: 1200, height: 630 } });
   await page.close();

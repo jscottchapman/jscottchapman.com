@@ -1,0 +1,20 @@
+---
+// A section: a black tab fixed to the top-left edge of one ruled frame. The
+// optional lede is the frame's first row. Content inside carries no outer
+// border of its own; the frame is the only one.
+interface Props {
+  title: string;
+  id: string;
+  lede?: string;
+}
+
+const { title, id, lede } = Astro.props;
+---
+
+<section class="wrap sec panel" aria-labelledby={id}>
+  <h2 class="tab" id={id}>{title}</h2>
+  <div class="panel-frame">
+    {lede && <div class="panel-lede"><p>{lede}</p></div>}
+    <slot />
+  </div>
+</section>

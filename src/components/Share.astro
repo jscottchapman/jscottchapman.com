@@ -13,7 +13,7 @@ const u = encodeURIComponent(url);
   <button type="button" class="share-btn" data-url={url} data-title={title}>Copy link</button>
   <a href={`https://twitter.com/intent/tweet?text=${text}&url=${u}`} target="_blank" rel="noopener noreferrer">X</a>
   <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${u}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-  <span class="share-copied" hidden>Link copied ✓</span>
+  <span class="share-copied" role="status" hidden>Link copied.</span>
 </div>
 
 <script>

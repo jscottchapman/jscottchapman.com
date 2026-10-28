@@ -1,0 +1,29 @@
+---
+// The opening lattice row of every inner page: a framed cell holding the
+// heading and deck, beside a square of pierced holes. The optional `aside`
+// line sits on a small card inside that square. Actions go in the slot.
+interface Props {
+  title: string;
+  deck?: string;
+  aside?: string;
+}
+
+const { title, deck, aside } = Astro.props;
+---
+
+<section class="ph">
+  <div class="wrap">
+    <div class="ph-grid">
+      <div class="cell framed ph-main">
+        <h1>{title}</h1>
+        <div class="divider" aria-hidden="true"><i></i></div>
+        {deck && <p class="deck">{deck}</p>}
+        <slot />
+      </div>
+      <div class="cell ph-mark">
+        <div class="holes" aria-hidden="true"></div>
+        {aside && <div class="mark-card"><p>{aside}</p></div>}
+      </div>
+    </div>
+  </div>
+</section>

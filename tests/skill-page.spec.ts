@@ -218,7 +218,7 @@ test('calculus-tutor schema is an EducationalApplication with dates and features
   expect(schema.url).toBe('https://jscottchapman.com/skills/calculus-tutor/');
   expect(schema.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   expect(Array.isArray(schema.featureList) && schema.featureList.length).toBeTruthy();
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/og-calculus-tutor\.png$/);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/og-calculus-tutor-lattice\.png$/);
 });
 
 test('calculus-tutor is listed first on /skills and in llms.txt', async ({ page }) => {
@@ -230,6 +230,6 @@ test('calculus-tutor is listed first on /skills and in llms.txt', async ({ page 
   const llms = await (await page.request.get('/llms.txt')).text();
   expect(llms).toContain('(https://jscottchapman.com/skills/calculus-tutor/)');
 
-  const og = await page.request.get('/og-calculus-tutor.png');
+  const og = await page.request.get('/og-calculus-tutor-lattice.png');
   expect(og.status()).toBe(200);
 });
