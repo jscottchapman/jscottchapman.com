@@ -16,6 +16,7 @@ const SKILL_PAGES = [
   '/skills/magical-service-design/',
   '/skills/persona-exorcist/',
   '/skills/ticket-driven-dev-harness/',
+  '/skills/calculus-tutor/',
 ];
 
 for (const path of SKILL_PAGES) {
@@ -185,4 +186,50 @@ test('magical-service-design download carries the same SKILL.md the page shows',
   const entry = firstZipEntry(await res.body());
   expect(entry.name).toBe('magical-service-design/SKILL.md');
   expect(entry.text.trim()).toBe(onPage);
+});
+
+// Issue #20: Calculus Tutor ships as a single-file skill. It is a study tool,
+// not a developer tool, so its schema says EducationalApplication. It is the
+// newest skill, so the index lists it first, and llms.txt lists it for AI
+// engines (hand-maintained, so a test is the only thing that keeps it honest).
+
+test('calculus-tutor shows one SKILL.md block and its download matches the page', async ({ page }) => {
+  await page.goto('/skills/calculus-tutor/');
+  await expect(page.locator('.source')).toHaveCount(1);
+  const onPage = (await page.locator('[data-copy-source]').first().textContent())?.trim() ?? '';
+  expect(onPage).toContain('name: "calculus-tutor"');
+  expect(onPage).not.toContain('—');
+
+  const dl = page.locator('a.download');
+  await expect(dl).toHaveAttribute('href', '/downloads/calculus-tutor.skill');
+  const res = await page.request.get('/downloads/calculus-tutor.skill');
+  expect(res.status()).toBe(200);
+  const entry = firstZipEntry(await res.body());
+  expect(entry.name).toBe('calculus-tutor/SKILL.md');
+  expect(entry.text.trim()).toBe(onPage);
+});
+
+test('calculus-tutor schema is an EducationalApplication with dates and features', async ({ page }) => {
+  await page.goto('/skills/calculus-tutor/');
+  const ld = await page.locator('script[type="application/ld+json"]').first().textContent();
+  const schema = JSON.parse(ld ?? '{}');
+  expect(schema['@type']).toBe('SoftwareApplication');
+  expect(schema.applicationCategory).toBe('EducationalApplication');
+  expect(schema.url).toBe('https://jscottchapman.com/skills/calculus-tutor/');
+  expect(schema.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(Array.isArray(schema.featureList) && schema.featureList.length).toBeTruthy();
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/og-calculus-tutor\.png$/);
+});
+
+test('calculus-tutor is listed first on /skills and in llms.txt', async ({ page }) => {
+  await page.goto('/skills/');
+  await expect(page.locator('.entry').first()).toHaveAttribute('href', '/skills/calculus-tutor/');
+  // Skills are free and ungated; the index description used to say otherwise.
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /No email required/);
+
+  const llms = await (await page.request.get('/llms.txt')).text();
+  expect(llms).toContain('(https://jscottchapman.com/skills/calculus-tutor/)');
+
+  const og = await page.request.get('/og-calculus-tutor.png');
+  expect(og.status()).toBe(200);
 });

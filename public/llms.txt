@@ -10,6 +10,7 @@
 
 ## Skills
 Free Claude skills (Claude Code or a Claude app), no email required. Each page shows the full source on the page and offers a download.
+- [Calculus Tutor](https://jscottchapman.com/skills/calculus-tutor/) (2026): Guides a student through a calculus problem one step at a time instead of giving the answer. Reads the problem from a screenshot, a photo, or the web page in view. Offers lettered choices built from common mistakes, so the student never types math, and lets the student set the pace with "hint", "show this step", "skip", or "show me the rest".
 - [Ticket-Driven Dev Harness](https://jscottchapman.com/skills/ticket-driven-dev-harness/) (2026): Turns a ticket into a reviewed, test-backed pull request. Detects the issue tracker, test framework, and package manager, writes the failing test before the code, gets a human nod on scope, then opens the PR that closes the ticket. Right-sizes the rigor: a one-line fix gets a one-line plan, a real feature gets the full test-first loop.
 - [Persona Exorcist](https://jscottchapman.com/skills/persona-exorcist/) (2026): Finds every AI agent persona in a codebase and the hidden hook, memory file, or import that keeps re-summoning one you already deleted, including the global config above the repo. Quarantines the source reversibly instead of deleting it.
 - [Magical Service Design](https://jscottchapman.com/skills/magical-service-design/) (2026): A brainstorm partner that refuses to be boring. Describe a customer moment and get back service ideas ranked by how audacious they are.

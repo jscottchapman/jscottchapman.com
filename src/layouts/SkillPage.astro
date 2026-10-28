@@ -40,6 +40,11 @@ interface Props {
   downloadBlurb?: string;
   /** utm_campaign for the signup; defaults to the slug */
   signupCampaign?: string;
+  /** schema.org applicationCategory; most skills are developer tools, but a
+   * study aid (e.g. calculus-tutor) is an EducationalApplication */
+  applicationCategory?: string;
+  /** short factual feature lines for the schema's featureList */
+  featureList?: string[];
 }
 
 const {
@@ -60,6 +65,8 @@ const {
   downloadLabel = 'Download the skill (.skill)',
   downloadBlurb = 'Works in Claude Code or a Claude app. Drop it in and go.',
   signupCampaign = slug,
+  applicationCategory = 'DeveloperApplication',
+  featureList,
 } = Astro.props;
 
 const site = 'https://jscottchapman.com';
@@ -74,9 +81,10 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name,
-  applicationCategory: 'DeveloperApplication',
+  applicationCategory,
   operatingSystem: 'Claude (Claude Code, Claude apps)',
   description,
+  ...(featureList && { featureList }),
   url: `${site}/skills/${slug}/`,
   downloadUrl: `${site}${download}`,
   isAccessibleForFree: true,
