@@ -6,15 +6,12 @@ interface Props {
   description?: string;
   /** og image path under the site root, e.g. "/og.png" */
   ogImage?: string;
-  /** masthead sub-rule line; pass "" to hide it */
-  tagline?: string;
 }
 
 const {
   title = 'J Scott Chapman · AI product consultant',
   description = 'J Scott Chapman is an AI product consultant who builds software end to end, stays close to the people using it, and finds out whether it actually worked.',
-  ogImage = '/og-home.png',
-  tagline = 'Building things, shipping them, and finding out whether they worked.',
+  ogImage = '/og-home-lattice.png',
 } = Astro.props;
 
 // On preview deploys, point canonical + OG image at the deployment's own
@@ -47,6 +44,7 @@ const nav = [
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#F4F4F1" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -69,7 +67,7 @@ const nav = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Jost:ital,wght@0,300..600;1,400&family=Red+Hat+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -91,40 +89,51 @@ const nav = [
     <slot name="head" />
   </head>
   <body>
-    <header class="masthead">
-      <div class="wrap">
-        <div class="row">
-          <a class="brand" href="/">J Scott Chapman</a>
-          <nav class="nav" aria-label="Primary">
-            {nav.map((item) => (
-              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-        {tagline && (
-          <div class="row under">
-            <span>{tagline}</span>
-            <span>Missoula, MT</span>
-          </div>
-        )}
-      </div>
-    </header>
+    <!-- The one glyph the site draws: four squares, used on every square-cell control. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="g4" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" fill="currentColor"/><rect x="9" y="1" width="6" height="6" fill="currentColor"/><rect x="1" y="9" width="6" height="6" fill="currentColor"/><rect x="9" y="9" width="6" height="6" fill="currentColor"/></symbol>
+    </svg>
+
+    <div class="wrap">
+      <header class="mast">
+        <a class="brand" href="/" aria-label="J Scott Chapman, home">
+          <svg viewBox="0 0 42 42" aria-hidden="true">
+            <rect x=".75" y=".75" width="40.5" height="40.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <g fill="currentColor">
+              <rect x="5" y="5" width="4" height="4"/><rect x="12" y="5" width="4" height="4"/><rect x="19" y="5" width="4" height="4"/><rect x="26" y="5" width="4" height="4"/><rect x="33" y="5" width="4" height="4"/>
+              <rect x="5" y="33" width="4" height="4"/><rect x="12" y="33" width="4" height="4"/><rect x="19" y="33" width="4" height="4"/><rect x="26" y="33" width="4" height="4"/><rect x="33" y="33" width="4" height="4"/>
+              <rect x="5" y="12" width="4" height="4"/><rect x="5" y="19" width="4" height="4"/><rect x="5" y="26" width="4" height="4"/>
+              <rect x="33" y="12" width="4" height="4"/><rect x="33" y="19" width="4" height="4"/><rect x="33" y="26" width="4" height="4"/>
+              <rect x="13" y="13" width="7" height="7"/><rect x="22" y="13" width="7" height="7"/><rect x="13" y="22" width="7" height="7"/><rect x="22" y="22" width="7" height="7"/>
+            </g>
+          </svg>
+          <span><span class="brand-name">J Scott Chapman</span><span class="brand-place">Missoula, Montana</span></span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </header>
+      <div class="pierce band-gap" aria-hidden="true"></div>
+    </div>
 
     <main>
       <slot />
     </main>
 
-    <footer>
-      <div class="wrap">
+    <footer class="site-foot wrap">
+      <div class="pierce" aria-hidden="true"></div>
+      <div class="row">
         <span>© 2026 J Scott Chapman · Missoula, Montana</span>
-        <span class="fnav">
+        <nav aria-label="Footer">
           <a href="/work/">Work</a>
           <a href="/notes/">Notes</a>
           <a href="/skills/">Skills</a>
           <a href="mailto:scott@ravenviewservices.com">Email</a>
-        </span>
+        </nav>
       </div>
     </footer>
   </body>

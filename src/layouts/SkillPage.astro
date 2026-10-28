@@ -1,18 +1,19 @@
 ---
 // The skill-page archetype, in one place. Every published skill renders through
-// this layout, so the behavior and structure live here once: header + back
-// link, share row, an intro <slot>, the on-page source viewer with click-to-copy,
-// the download card, the email signup, and the SoftwareApplication schema.
+// this layout, so the behavior and structure live here once: the page head,
+// share row, an intro <slot>, the on-page source viewer with click-to-copy,
+// the download row, the email signup, and the SoftwareApplication schema.
 //
-// A new skill page is props + intro prose — nothing is copied from another page,
+// A new skill page is props + intro prose. Nothing is copied from another page,
 // so deleting any one skill page leaves this layout (and the others) intact.
 import Base from './Base.astro';
+import PageHead from '../components/PageHead.astro';
 import Share from '../components/Share.astro';
 import Signup from '../components/Signup.astro';
 import { skills } from '../data/skills';
 
 interface Props {
-  /** url slug under /skills/<slug>/ — also the default signup campaign */
+  /** url slug under /skills/<slug>/, also the default signup campaign */
   slug: string;
   /** display name, e.g. "Magical Service Design" */
   name: string;
@@ -23,7 +24,7 @@ interface Props {
   /** h1 text; defaults to the name with a period */
   heading?: string;
   standfirst?: string;
-  /** the small eyebrow line above the h1 */
+  /** the short line on the card inside the page head's square */
   eyebrow?: string;
   shareTitle?: string;
   /** source-bar label, e.g. "magical-service-design / SKILL.md" */
@@ -52,7 +53,7 @@ const {
   name,
   description,
   title = `${name} · J Scott Chapman`,
-  ogImage = '/og-skill.png',
+  ogImage = '/og-skill-lattice.png',
   heading = `${name}.`,
   standfirst,
   eyebrow = 'A skill, free · works in Claude',
@@ -94,59 +95,66 @@ const schema = {
 };
 ---
 
-<Base title={title} description={description} ogImage={ogImage} tagline="">
+<Base title={title} description={description} ogImage={ogImage}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
 
-  <article class="section" style="border-top:0;padding-top:24px;">
-    <div class="wrap">
-      <header class="article-head">
-        <a class="back-link" href="/skills/">← Skills</a>
-        <span class="when">{eyebrow}</span>
-        <h1>{heading}</h1>
-        {standfirst && <p class="standfirst">{standfirst}</p>}
-      </header>
+  <PageHead title={heading} deck={standfirst} aside={eyebrow}>
+    <div class="actions">
+      <a class="btn primary pierced" href="#source"><span class="gl" aria-hidden="true"><svg class="g4"><use href="#g4" /></svg></span><span class="tx">Read the source</span></a>
+      <a class="btn" href="/skills/"><span class="tx">All skills</span></a>
+    </div>
+  </PageHead>
 
-      <Share title={shareTitle} />
-
-      <div class="prose" style="max-width:60ch;">
-        <slot />
+  <div class="wrap article">
+    <aside class="article-aside">
+      <div class="sticky">
+        <Share title={shareTitle} />
       </div>
+    </aside>
+    <div class="article-body prose">
+      <slot />
+    </div>
+  </div>
 
-      <!-- THE SKILL, ON THE PAGE -->
+  <!-- THE SKILL, ON THE PAGE -->
+  <section class="wrap sources" id="source" aria-label="Skill source">
+    <div class="source">
+      <div class="source-bar">
+        <span class="source-name">{sourceLabel}</span>
+        <button class="copy-btn" data-copy-btn type="button">Copy</button>
+      </div>
+      <pre data-copy-source>{source}</pre>
+    </div>
+
+    <!-- BUNDLED FILES (multi-file skills): the scripts SKILL.md tells you to
+         run, shown here too so the page never references code it doesn't show. -->
+    {extraSources.map((extra) => (
       <div class="source">
         <div class="source-bar">
-          <span class="source-name">{sourceLabel}</span>
+          <span class="source-name">{extra.label}</span>
           <button class="copy-btn" data-copy-btn type="button">Copy</button>
         </div>
-        <pre data-copy-source>{source}</pre>
+        <pre data-copy-source>{extra.source}</pre>
       </div>
+    ))}
 
-      <!-- BUNDLED FILES (multi-file skills): the scripts SKILL.md tells you to
-           run, shown here too so the page never references code it doesn't show. -->
-      {extraSources.map((extra) => (
-        <div class="source">
-          <div class="source-bar">
-            <span class="source-name">{extra.label}</span>
-            <button class="copy-btn" data-copy-btn type="button">Copy</button>
-          </div>
-          <pre data-copy-source>{extra.source}</pre>
-        </div>
-      ))}
-
-      <!-- FREE DOWNLOAD -->
-      <div class="unlocked">
-        <h4>Or grab the file</h4>
-        <p class="head">{downloadHeading}</p>
-        <a class="download" href={download} download>{downloadLabel}</a>
-        <p style="font-family:var(--sans);font-size:12.5px;letter-spacing:0.04em;color:var(--ink-2);margin:14px 0 0;">
-          {downloadBlurb}
-        </p>
+    <!-- FREE DOWNLOAD -->
+    <div class="get">
+      <div class="cell get-head framed">
+        <h2>Or grab the file</h2>
+        <p>{downloadHeading}</p>
       </div>
-
-      <!-- OPTIONAL signup -->
-      <Signup campaign={signupCampaign} />
+      <div class="cell get-act">
+        <a class="btn primary pierced download" href={download} download><span class="gl" aria-hidden="true"><svg class="g4"><use href="#g4" /></svg></span><span class="tx">{downloadLabel}</span></a>
+        <p>{downloadBlurb}</p>
+      </div>
     </div>
-  </article>
+  </section>
+
+  <!-- OPTIONAL signup -->
+  <section class="wrap sec">
+    <Signup campaign={signupCampaign} />
+  </section>
 
   <script>
     // Click-to-copy the on-page skill source. Scoped to data-attributes and
@@ -157,7 +165,7 @@ const schema = {
       btn.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(source?.textContent ?? '');
-          btn.textContent = 'Copied ✓';
+          btn.textContent = 'Copied';
           setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
         } catch {
           btn.textContent = 'Press ⌘C';

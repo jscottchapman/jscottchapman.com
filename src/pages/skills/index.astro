@@ -1,41 +1,74 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { skills } from '../../data/skills';
+import PageHead from '../../components/PageHead.astro';
+import { skills, stampFor } from '../../data/skills';
 
-const published = skills.filter((s) => !s.draft);
+// Newest first: the first skill owns the large cell, the rest one square each.
+const [featured, ...others] = skills.filter((s) => !s.draft);
+
+// The large cell shows the opening lines of the featured skill's own SKILL.md.
+// Single-file skills live at <slug>.skill.txt, bundles at <slug>/SKILL.md.
+const sources = import.meta.glob<string>(['../../data/*.skill.txt', '../../data/*/SKILL.md'], {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+const featuredSource = featured
+  ? sources[`../../data/${featured.slug}.skill.txt`] ?? sources[`../../data/${featured.slug}/SKILL.md`]
+  : undefined;
+// Skip the frontmatter, then keep the first lines of the body.
+const excerpt = featuredSource
+  ?.replace(/^---[\s\S]*?---\s*/, '')
+  .split('\n')
+  .slice(0, 7)
+  .join('\n')
+  .trimEnd();
 ---
 
 <Base
   title="Skills · J Scott Chapman"
   description="Free Claude skills I've built and shared. Each page shows the full source, with a download. No email required."
-  tagline="Tools I've built and decided to give away."
 >
-  <section class="cover">
-    <div class="wrap">
-      <span class="kicker">the toolbox ↓</span>
-      <h1>Skills.</h1>
-      <p class="deck">Reusable Claude Code skills I've built for my own work and decided to hand out. Free, no email required. Take what's useful.</p>
-    </div>
-  </section>
+  <PageHead
+    title="Skills."
+    deck="Reusable Claude Code skills I've built for my own work and decided to hand out. Free, no email required. Take what's useful."
+    aside="Tools I've built and decided to give away."
+  />
 
-  <section class="section" style="border-top:0;padding-top:0;">
-    <div class="wrap">
-      {published.length === 0 ? (
-        <p class="lede">Nothing published yet. Soon.</p>
-      ) : (
-        <div class="entry-list">
-          {published.map((s) => (
-            <a class="entry" href={`/skills/${s.slug}/`}>
-              <span class="when">Skill</span>
-              <span class="lede-row">
-                <h3>{s.name}<span class="pill">free</span></h3>
-                <p>{s.tagline}</p>
-              </span>
-              <span class="ar">→</span>
-            </a>
-          ))}
+  <section class="wrap sec" aria-label="All skills">
+    {!featured ? (
+      <p class="empty">Nothing published yet. Soon.</p>
+    ) : (
+      <div class="lattice skills-lattice">
+        <a class="cell entry feat-link framed" href={`/skills/${featured.slug}/`}>
+          <div class="feat-head">
+            <h2>{featured.name}</h2>
+            <span class="stamp"><b>Newest</b>{stampFor(featured)}</span>
+          </div>
+          <p class="tag">{featured.tagline}</p>
+          <p class="origin">{featured.origin}</p>
+          {excerpt && (
+            <div class="excerpt" aria-hidden="true">
+              <span class="excerpt-bar">{featured.slug} / SKILL.md</span>
+              <pre>{excerpt}</pre>
+            </div>
+          )}
+        </a>
+
+        {others.map((s) => (
+          <a class="cell entry skill" href={`/skills/${s.slug}/`}>
+            <h2 class="skill-name">{s.name}</h2>
+            <p class="tag">{s.tagline}</p>
+            <p class="origin">{s.origin}</p>
+            <span class="skill-foot">{stampFor(s)}</span>
+          </a>
+        ))}
+
+        <div class="cell inverse promise">
+          <p>Every skill is free</p>
+          <p>Each page shows the full source, with a download. No email required.</p>
         </div>
-      )}
-    </div>
+      </div>
+    )}
   </section>
 </Base>

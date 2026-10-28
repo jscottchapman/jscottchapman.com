@@ -7,7 +7,7 @@ import { pageLoadsCleanly, NAV } from './helpers';
 
 const PAGES = [
   { path: '/', heading: /J Scott\s+Chapman/i },
-  { path: '/work/', heading: /Notes from the\s+field/i },
+  { path: '/work/', heading: /Built end to\s+end/i },
   { path: '/notes/', heading: /^Notes\.?$/i },
   { path: '/skills/', heading: /^Skills\.?$/i },
   { path: '/about/', heading: /How I\s+work/i },

@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
 import Share from '../../components/Share.astro';
 import Signup from '../../components/Signup.astro';
 import { getCollection, render } from 'astro:content';
@@ -15,33 +16,35 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 ---
 
 <Base
   title={`${entry.data.title} · J Scott Chapman`}
   description={entry.data.description}
-  tagline=""
 >
-  <article class="section" style="border-top:0;padding-top:24px;">
-    <div class="wrap">
-      <header class="article-head">
-        <a class="back-link" href="/notes/">← Notes</a>
-        <span class="when">{fmt(entry.data.date)}</span>
-        <h1>{entry.data.title}</h1>
-        <p class="standfirst">{entry.data.description}</p>
-      </header>
-      <div class="prose">
-        <Content />
-      </div>
-      <Share title={entry.data.title} />
+  <PageHead title={entry.data.title} deck={entry.data.description} aside={fmt(entry.data.date)}>
+    <div class="actions">
+      <a class="btn" href="/notes/"><span class="tx">All notes</span></a>
+    </div>
+  </PageHead>
 
-      <Signup
-        campaign={`note:${entry.id}`}
-        eyebrow="If you got something out of this"
-        heading="Want the next note in your inbox?"
-        body="I write these when there's something worth saying, not on a schedule. Drop your email and I'll send the next one along. Nothing else."
-      />
+  <article class="wrap article">
+    <aside class="article-aside">
+      <div class="sticky">
+        <Share title={entry.data.title} />
+      </div>
+    </aside>
+    <div class="article-body prose">
+      <Content />
     </div>
   </article>
+
+  <section class="wrap sec">
+    <Signup
+      campaign={`note:${entry.id}`}
+      heading="Want the next note in your inbox?"
+      body="I write these when there's something worth saying, not on a schedule. Drop your email and I'll send the next one along. Nothing else."
+    />
+  </section>
 </Base>
